@@ -6,18 +6,32 @@ os:
     - linux
 #    - osx
 
+# use containers
+sudo: false 
+
+env:
+  - TYPE=Debug
+  - DEVSPACE=$HOME
+
 install:
   #dcmtk
+  - cd $HOME
   - git clone git://git.dcmtk.org/dcmtk.git
-  - cd dcmtk && ./configure --prefix=/usr && make && sudo make install
+  - cd dcmtk && mkdir build-$TYPE && cd build-$TYPE 
+  - cmake .. -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/dcmtk/$TYPE
+  - make -j8 install
   
   #openjpeg
+  - cd $HOME
   - wget https://github.com/uclouvain/openjpeg/archive/version.2.1.tar.gz
   - tar -xzf version.2.1.tar.gz
-  - cd openjpeg-version.2.1 && cmake . && make && sudo make install
+  - cd openjpeg-version.2.1 && mkdir build-$TYPE && cd build-$TYPE
+  - cmake .. -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/openjpeg/$TYPE
+  - make -j8 install
 
 before_script:
-  - mkdir Build
-  - cd Build
+  - cd $HOME
+  - mkdir build-$TYPE
+  - cd build-$TYPE
 
-script: cmake .. & make
+script: cmake .. -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/fmjpeg2koj/$TYPE && make -j8 install
