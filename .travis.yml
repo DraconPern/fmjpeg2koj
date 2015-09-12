@@ -10,8 +10,7 @@ os:
 sudo: false 
 
 env:
-  - TYPE=Debug
-  - DEVSPACE=$HOME
+  - TYPE=Debug DEVSPACE=$HOME
 
 install:
   #dcmtk
