@@ -20,7 +20,7 @@ cache:
 install:
   #dcmtk
   - cd $HOME
-  - [ -d dcmtk ] || git clone git://git.dcmtk.org/dcmtk.git
+  - "[ -d dcmtk ] || git clone git://git.dcmtk.org/dcmtk.git"
   - cd dcmtk && git pull && mkdir -p build-$TYPE && cd build-$TYPE 
   - cmake .. -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/dcmtk/$TYPE
   - make -j8 install
