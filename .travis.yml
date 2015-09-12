@@ -1,14 +1,14 @@
 language: cpp
 compiler:
     - gcc
-	
+
 os:
     - linux
 #    - osx
 
 install:
   #dcmtk
-  - git clone git://git.dcmtk.org/dcmtk.git 	
+  - git clone git://git.dcmtk.org/dcmtk.git
   - cd dcmtk && ./configure --prefix=/usr && make && sudo make install
   
   #openjpeg
