@@ -1,0 +1,23 @@
+language: cpp
+compiler:
+    - gcc
+	
+os:
+    - linux
+#    - osx
+
+install:
+  #dcmtk
+  - git clone git://git.dcmtk.org/dcmtk.git 	
+  - cd dcmtk && ./configure --prefix=/usr && make && sudo make install
+  
+  #openjpeg
+  - wget https://github.com/uclouvain/openjpeg/archive/version.2.1.tar.gz
+  - tar -xzf version.2.1.tar.gz
+  - cd openjpeg-version.2.1 && cmake . && make && sudo make install
+
+before_script:
+  - mkdir Build
+  - cd Build
+
+script: cmake .. & make
