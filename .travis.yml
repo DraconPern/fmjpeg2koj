@@ -10,7 +10,7 @@ os:
 sudo: false 
 
 env:
-  - TYPE=Debug DEVSPACE=$HOME
+  - TYPE=Debug
 
 cache:
   directories:
@@ -21,18 +21,18 @@ install:
   #dcmtk
   - cd $HOME
   - "[ -d dcmtk ] || git clone git://git.dcmtk.org/dcmtk.git"
-  - cd dcmtk && git pull && mkdir -p build-$TYPE && cd build-$TYPE 
-  - cmake .. -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/dcmtk/$TYPE
+  - cd dcmtk && git pull && mkdir -p builddir && cd builddir 
+  - cmake .. -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=$HOME/dcmtk/$TYPE
   - make -j8 install
   
   #openjpeg
   - cd $HOME
   - wget https://github.com/uclouvain/openjpeg/archive/version.2.1.tar.gz
   - tar -xzf version.2.1.tar.gz
-  - cd openjpeg-version.2.1 && mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/openjpeg/$TYPE
+  - cd openjpeg-version.2.1 && mkdir -p builddir && cd builddir
+  - cmake .. -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=$HOME/openjpeg/$TYPE
   - make -j8 install
 
 script:
-  - cd $TRAVIS_BUILD_DIR && mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/fmjpeg2koj/$TYPE && make -j8 install
+  - cd $TRAVIS_BUILD_DIR && mkdir -p builddir && cd builddir
+  - cmake .. -DOPENJPEG=$HOME/openjpeg/$TYPE -DDCMTK_DIR=$HOME/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$HOME/fmjpeg2koj/$TYPE && make -j8 install
