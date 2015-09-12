@@ -16,7 +16,7 @@ install:
   #dcmtk
   - cd $HOME
   - git clone git://git.dcmtk.org/dcmtk.git
-  - cd dcmtk && mkdir build-$TYPE && cd build-$TYPE 
+  - cd dcmtk && mkdir -p build-$TYPE && cd build-$TYPE 
   - cmake .. -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/dcmtk/$TYPE
   - make -j8 install
   
@@ -24,13 +24,13 @@ install:
   - cd $HOME
   - wget https://github.com/uclouvain/openjpeg/archive/version.2.1.tar.gz
   - tar -xzf version.2.1.tar.gz
-  - cd openjpeg-version.2.1 && mkdir build-$TYPE && cd build-$TYPE
+  - cd openjpeg-version.2.1 && mkdir -p build-$TYPE && cd build-$TYPE
   - cmake .. -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/openjpeg/$TYPE
   - make -j8 install
 
 before_script:
-  - cd $HOME
-  - mkdir build-$TYPE
-  - cd build-$TYPE
+  - 
 
-script: cd DraconPern/fmjpeg2koj && cmake .. -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/fmjpeg2koj/$TYPE && make -j8 install
+script:
+  - cd DraconPern/fmjpeg2koj && mkdir -p build-$TYPE && cd build-$TYPE
+  - cmake .. -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/fmjpeg2koj/$TYPE && make -j8 install
