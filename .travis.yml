@@ -34,5 +34,5 @@ install:
   - make -j8 install
 
 script:
-  - cd DraconPern/fmjpeg2koj && mkdir -p build-$TYPE && cd build-$TYPE
+  - cd $TRAVIS_BUILD_DIR/DraconPern/fmjpeg2koj && mkdir -p build-$TYPE && cd build-$TYPE
   - cmake .. -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/fmjpeg2koj/$TYPE && make -j8 install
