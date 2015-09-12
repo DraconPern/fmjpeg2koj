@@ -12,6 +12,11 @@ sudo: false
 env:
   - TYPE=Debug DEVSPACE=$HOME
 
+cache:
+  directories:
+    - $HOME/dcmtk
+    - $HOME/openjpeg-version.2.1
+  
 install:
   #dcmtk
   - cd $HOME
@@ -27,9 +32,6 @@ install:
   - cd openjpeg-version.2.1 && mkdir -p build-$TYPE && cd build-$TYPE
   - cmake .. -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/openjpeg/$TYPE
   - make -j8 install
-
-before_script:
-  - 
 
 script:
   - cd DraconPern/fmjpeg2koj && mkdir -p build-$TYPE && cd build-$TYPE
