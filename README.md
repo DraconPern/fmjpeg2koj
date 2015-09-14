@@ -1,4 +1,6 @@
 # fmjpeg2koj
+[![Build Status](https://travis-ci.org/DraconPern/fmjpeg2koj.svg?branch=master)](https://travis-ci.org/DraconPern/fmjpeg2koj)
+
 JPEG2000 codec for DCMTK based on openjpeg
 
 ## Download
