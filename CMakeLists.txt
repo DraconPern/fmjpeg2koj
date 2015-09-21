@@ -59,9 +59,9 @@ TARGET_LINK_LIBRARIES(fmjpeg2k
 include(GenerateExportHeader)	
 generate_export_header(fmjpeg2k)
 set_property(TARGET fmjpeg2k PROPERTY VERSION ${fmjpeg2k_VERSION})
-set_property(TARGET fmjpeg2k PROPERTY SOVERSION 3)
+set_property(TARGET fmjpeg2k PROPERTY SOVERSION 1)
 set_property(TARGET fmjpeg2k PROPERTY
-  INTERFACE_fmjpeg2k_MAJOR_VERSION 3)
+  INTERFACE_fmjpeg2k_MAJOR_VERSION 1)
 set_property(TARGET fmjpeg2k APPEND PROPERTY
   COMPATIBLE_INTERFACE_STRING fmjpeg2k_MAJOR_VERSION
 )
@@ -90,8 +90,7 @@ write_basic_package_version_file(
 )
 
 export(EXPORT fmjpeg2kTargets
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kTargets.cmake"
-  NAMESPACE fmjpeg2k::
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kTargets.cmake"  
 )
 configure_file(cmake/fmjpeg2kConfig.cmake
   "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kConfig.cmake"
@@ -102,8 +101,6 @@ set(ConfigPackageLocation lib/cmake/fmjpeg2k)
 install(EXPORT fmjpeg2kTargets
   FILE
     fmjpeg2kTargets.cmake
-  NAMESPACE
-    fmjpeg2k::
   DESTINATION
     ${ConfigPackageLocation}
 )
