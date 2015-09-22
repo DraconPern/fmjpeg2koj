@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 2.4)
 
 project(fmjpeg2k)
 
-set(fmjpeg2k_VERSION 1.0.2)
+set (fmjpeg2k_VERSION_MAJOR 1)
+set (fmjpeg2k_VERSION_MINOR 0)
+set (fmjpeg2k_VERSION_BUILD 2)
+set(fmjpeg2k_VERSION "${fmjpeg2k_VERSION_MAJOR}.${fmjpeg2k_VERSION_MINOR}.${fmjpeg2k_VERSION_BUILD}")
 
 option(BUILD_SHARED_LIBS "Build fmjpeg2k shared library and link executables against it." ON)
 
@@ -51,7 +54,8 @@ TARGET_LINK_LIBRARIES(dcmcjp2k
 	)
 
 add_library(fmjpeg2k ${fmjpeg2k_SRCS})
-TARGET_LINK_LIBRARIES(fmjpeg2k 			
+set(fmjpeg2k_LIBRARY_NAME fmjpeg2k)
+TARGET_LINK_LIBRARIES(fmjpeg2k
 	${DCMTK_LIBRARIES}	
 	openjp2
 	)
@@ -70,7 +74,7 @@ install(TARGETS fmjpeg2k EXPORT fmjpeg2kTargets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
-  INCLUDES DESTINATION include/fmjpeg2k
+  INCLUDES DESTINATION include
 )
 
 install(
@@ -92,10 +96,14 @@ write_basic_package_version_file(
 export(EXPORT fmjpeg2kTargets
   FILE "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kTargets.cmake"  
 )
-configure_file(cmake/fmjpeg2kConfig.cmake
-  "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kConfig.cmake"
-  COPYONLY
+configure_file( ${CMAKE_SOURCE_DIR}/cmake/fmjpeg2kConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2kConfig.cmake
+  @ONLY
 )
+#configure_file(cmake/fmjpeg2kConfig.cmake
+#  "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kConfig.cmake"
+#  COPYONLY
+#)
 
 set(ConfigPackageLocation lib/cmake/fmjpeg2k)
 install(EXPORT fmjpeg2kTargets
@@ -104,9 +112,11 @@ install(EXPORT fmjpeg2kTargets
   DESTINATION
     ${ConfigPackageLocation}
 )
+
+
 install(
   FILES
-    cmake/fmjpeg2kConfig.cmake
+    "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2kConfig.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kConfigVersion.cmake"
   DESTINATION
     ${ConfigPackageLocation}

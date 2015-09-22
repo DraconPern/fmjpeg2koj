@@ -1,0 +1,38 @@
+#-----------------------------------------------------------------------------
+#
+# fmjpeg2kConfig.cmake - CMake configuration file for external projects.
+#
+# This file is configured by fmjpeg2k and used by the Usefmjpeg2k.cmake
+# module to load fmjpeg2k's settings for an external project.
+@fmjpeg2k_CONFIG_INSTALL_ONLY@
+# The fmjpeg2k version number.
+#set(fmjpeg2k_MAJOR_VERSION "@fmjpeg2k_VERSION_MAJOR@")
+#set(fmjpeg2k_MINOR_VERSION "@fmjpeg2k_VERSION_MINOR@")
+#set(fmjpeg2k_BUILD_VERSION "@fmjpeg2k_VERSION_BUILD@")
+
+set(OPENJPEG_LIBRARIES fmjpeg2k)
+
+# The configuration options.
+set(fmjpeg2k_BUILD_SHARED_LIBS "@BUILD_SHARED_LIBS@")
+
+get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+if(EXISTS ${SELF_DIR}/fmjpeg2kTargets.cmake)
+  # This is an install tree
+  include(${SELF_DIR}/fmjpeg2kTargets.cmake)
+  get_filename_component(fmjpeg2k_INCLUDE_ROOT "${SELF_DIR}/../../../include" ABSOLUTE)
+  set(FMJPEG2K_INCLUDE_DIRS ${fmjpeg2k_INCLUDE_ROOT})  
+else()
+  if(EXISTS ${SELF_DIR}/fmjpeg2kExports.cmake)
+    # This is a build tree
+    set( FMJPEG2K_INCLUDE_DIRS @fmjpeg2k_INCLUDE_PATH@)
+
+    include(${SELF_DIR}/fmjpeg2kExports.cmake)
+
+  else()
+    message(FATAL_ERROR "ooops")
+  endif()
+endif()
+
+# Backward compatible part:
+set(fmjpeg2k_FOUND       TRUE)
+message(STATUS "FMJPEG2K_INCLUDE_DIRS ${FMJPEG2K_INCLUDE_DIRS} FMJPEG2K_LIBRARIES ${FMJPEG2K_LIBRARIES}")
