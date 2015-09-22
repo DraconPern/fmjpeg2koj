@@ -10,7 +10,7 @@
 #set(fmjpeg2k_MINOR_VERSION "@fmjpeg2k_VERSION_MINOR@")
 #set(fmjpeg2k_BUILD_VERSION "@fmjpeg2k_VERSION_BUILD@")
 
-set(OPENJPEG_LIBRARIES fmjpeg2k)
+set(FMJPEG2K_LIBRARIES fmjpeg2k)
 
 # The configuration options.
 set(fmjpeg2k_BUILD_SHARED_LIBS "@BUILD_SHARED_LIBS@")
