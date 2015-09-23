@@ -8,10 +8,6 @@ platform:
 configuration:
   - Release
 
-environment:
-  TYPE: %CONFIGURATION%
-  DEVSPACE: %APPVEYOR_BUILD_FOLDER%
-
 install:
   - SET TYPE=%CONFIGURATION%
   - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%
