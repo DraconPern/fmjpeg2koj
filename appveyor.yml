@@ -13,6 +13,8 @@ environment:
   DEVSPACE: %APPVEYOR_BUILD_FOLDER%
 
 install:
+  - SET TYPE=%CONFIGURATION%
+  - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%
   - git clone git://git.dcmtk.org/dcmtk.git
   - cd %DEVSPACE%\dcmtk
   - mkdir build-%TYPE%
