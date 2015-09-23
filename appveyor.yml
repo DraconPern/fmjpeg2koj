@@ -11,16 +11,17 @@ configuration:
 install:
   - SET TYPE=%CONFIGURATION%
   - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%
+  - cd %DEVSPACE%
   - git clone git://git.dcmtk.org/dcmtk.git
   - cd %DEVSPACE%\dcmtk
   - mkdir build-%TYPE%
   - cd build-%TYPE%
   - cmake .. -G "Visual Studio 11" -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=%DEVSPACE%\dcmtk\%TYPE%
-  - msbuild /P:Configuration=%TYPE% INSTALL.vcxproj /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-  - cd ..\..
+  - msbuild /maxcpucount:2 /P:Configuration=%TYPE% INSTALL.vcxproj /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  - cd %DEVSPACE%
   - git clone https://github.com/uclouvain/openjpeg.git
-  - git checkout openjpeg-2.1
   - cd %DEVSPACE%\openjpeg
+  - git checkout openjpeg-2.1
   - mkdir build-%TYPE%
   - cd build-%TYPE%
   - cmake .. -G "Visual Studio 11" -DBUILD_THIRDPARTY=1 -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_C_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DCMAKE_INSTALL_PREFIX=%DEVSPACE%\openjpeg\%TYPE%
@@ -33,4 +34,5 @@ before_build:
   - cmake .. -G "Visual Studio 11" -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DOPENJPEG=%DEVSPACE%\openjpeg\%TYPE% -DDCMTK_DIR=%DEVSPACE%\dcmtk\build-%TYPE% -DCMAKE_INSTALL_PREFIX=%DEVSPACE%\%TYPE%
 
 build_script:
+  - cd %DEVSPACE%\build-%TYPE%
   - msbuild /P:Configuration=%TYPE% INSTALL.vcxproj /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
