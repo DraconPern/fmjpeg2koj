@@ -2,3 +2,5 @@ build-Debug/
 build-Release/
 Debug/
 Release/
+dcmtk/
+openjpeg/
