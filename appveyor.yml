@@ -10,7 +10,8 @@ configuration:
 
 install:
   - SET TYPE=%CONFIGURATION%
-  - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%
+  - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%\..
+  
   - cd %DEVSPACE%
   - git clone git://git.dcmtk.org/dcmtk.git
   - cd %DEVSPACE%\dcmtk
@@ -28,11 +29,29 @@ install:
   - msbuild /P:Configuration=%TYPE% INSTALL.vcxproj /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 before_build:
-  - cd %DEVSPACE%
-  - mkdir build-%TYPE%
-  - cd build-%TYPE%
-  - cmake .. -G "Visual Studio 11" -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DOPENJPEG=%DEVSPACE%\openjpeg\%TYPE% -DDCMTK_DIR=%DEVSPACE%\dcmtk\build-%TYPE% -DCMAKE_INSTALL_PREFIX=%DEVSPACE%\%TYPE%
+  - cd %APPVEYOR_BUILD_FOLDER% && mkdir build-%TYPE% && cd build-%TYPE%  
+  - cmake .. -G "Visual Studio 11" -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DOPENJPEG=%DEVSPACE%\openjpeg\%TYPE% -DDCMTK_DIR=%DEVSPACE%\dcmtk\build-%TYPE% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%\%TYPE%
 
 build_script:
   - cd %DEVSPACE%\build-%TYPE%
   - msbuild /P:Configuration=%TYPE% INSTALL.vcxproj /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+after_build:
+  - cd %DEVSPACE%
+  - 7z a fmjpeg2koj.zip fmjpeg2koj\%TYPE%
+  - mv fmjpeg2koj.zip %APPVEYOR_BUILD_FOLDER%
+
+artifacts:
+  - path: fmjpeg2koj.zip
+    name: fmjpeg2koj
+ 
+deploy:
+  provider: S3
+  access_key_id:
+    secure: ocfx3RWVSyFaLRBBJXRLrvwqFGoftzrWzqUWrx20/bc=
+  secret_access_key:
+    secure: cVrRAHZDL4OZaPmgpH2RAa6yKD1ckjrMvtL/RozVMTTxiMWe5+3BKGrWv7RzNQLK
+  bucket: draconpern-buildcache
+  set_public: true
+  folder: 
+  artifact: fmjpeg2koj    
