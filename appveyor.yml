@@ -16,7 +16,7 @@ install:
   - cd %DEVSPACE%
   - ps: |
       Invoke-WebRequest http://draconpern-buildcache.s3.amazonaws.com/dcmtk.7z -Outfile "dcmtk.7z"
-  - 7z e -y dcmtk.7z
+  - 7z x -y dcmtk.7z
 
 # openjpeg
   - cd %DEVSPACE%
@@ -26,7 +26,7 @@ install:
   - msbuild /P:Configuration=%TYPE% INSTALL.vcxproj /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
  
 before_build:
-  - cd %APPVEYOR_BUILD_FOLDER% && mkdir build-%TYPE% && cd build-%TYPE%  
+  - cd %APPVEYOR_BUILD_FOLDER% && mkdir build-%TYPE% && cd build-%TYPE%
   - cmake .. -G "Visual Studio 11" -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DOPENJPEG=%DEVSPACE%\openjpeg\%TYPE% -DDCMTK_DIR=%DEVSPACE%\dcmtk\build-%TYPE% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%\%TYPE%
 
 build_script:
