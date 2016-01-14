@@ -16,7 +16,7 @@ install:
   - cd %DEVSPACE%
   - ps: |
       Invoke-WebRequest http://draconpern-buildcache.s3.amazonaws.com/dcmtk.7z -Outfile "dcmtk.7z"
-  - 7z e dcmtk.7z
+  - 7z e -y dcmtk.7z
 
 # openjpeg
   - cd %DEVSPACE%
