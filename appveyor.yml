@@ -15,8 +15,8 @@ install:
 # dcmtk & zlib
   - cd %DEVSPACE%
   - ps: |
-      Invoke-WebRequest http://draconpern-buildcache.s3.amazonaws.com/dcmtk.zip -Outfile "dcmtk.zip"
-  - unzip dcmtk.zip
+      Invoke-WebRequest http://draconpern-buildcache.s3.amazonaws.com/dcmtk.zip -Outfile "dcmtk.7z"
+  - 7z e dcmtk.7z
 
 # openjpeg
   - cd %DEVSPACE%
@@ -35,11 +35,11 @@ build_script:
 
 after_build:
   - cd %DEVSPACE%
-  - 7z a fmjpeg2koj.zip fmjpeg2koj\%TYPE%
-  - mv fmjpeg2koj.zip %APPVEYOR_BUILD_FOLDER%
+  - 7z a fmjpeg2koj.7z fmjpeg2koj\%TYPE% openjpeg\%TYPE%
+  - mv fmjpeg2koj.7z %APPVEYOR_BUILD_FOLDER%
 
 artifacts:
-  - path: fmjpeg2koj.zip
+  - path: fmjpeg2koj.7z
     name: fmjpeg2koj
  
 deploy:
