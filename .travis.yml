@@ -3,7 +3,7 @@ compiler:
     - gcc
 
 os:
-#    - linux
+    - linux
     - osx
 
 # use containers
