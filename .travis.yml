@@ -10,35 +10,35 @@ os:
 sudo: false
 
 env:
-  - TYPE=Debug DEVSPACE=$HOME
+  - TYPE=Debug DEVSPACE=$TRAVIS_BUILD_DIR/..
 
 install:
   #dcmtk
-  - cd $HOME
+  - cd $DEVSPACE
   - "[ -d dcmtk ] || git clone git://git.dcmtk.org/dcmtk.git"
   - cd dcmtk
   - git checkout 5371e1d84526e7544ab7e70fb47e3cdb4e9231b2 
   - mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=$HOME/dcmtk/$TYPE
+  - cmake .. -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/dcmtk/$TYPE
   - make -j8 install
 
   #openjpeg
-  - cd $HOME
+  - cd $DEVSPACE
   - wget https://github.com/uclouvain/openjpeg/archive/version.2.1.tar.gz
   - tar -xzf version.2.1.tar.gz
   - cd openjpeg-version.2.1 && mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=$HOME/openjpeg/$TYPE
+  - cmake .. -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/openjpeg/$TYPE
   - make -j8 install
 
 script:
   - cd $TRAVIS_BUILD_DIR && mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DOPENJPEG=$HOME/openjpeg/$TYPE -DDCMTK_DIR=$HOME/dcmtk/build-$TYPE -DCMAKE_INSTALL_PREFIX=$HOME/fmjpeg2koj/$TYPE 
+  - cmake .. -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/build-$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/fmjpeg2koj/$TYPE 
   - make -j8 install
 before_deploy:
-- cd $TRAVIS_BUILD_DIR/..
+- cd $DEVSPACE
 - zip -r latest.zip fmjpeg2koj/$TYPE dcmtk/$TYPE
 - mkdir -p dpl_cd_upload
-- mv latest.zip $TRAVIS_BUILD_DIR/../dpl_cd_upload/fmjpeg2koj-$TRAVIS_OS_NAME.zip
+- mv latest.zip $DEVSPACE/dpl_cd_upload/fmjpeg2koj-$TRAVIS_OS_NAME.zip
 deploy:
   provider: s3
   access_key_id: AKIAJYJPUJU2KFTMOVHA
