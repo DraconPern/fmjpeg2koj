@@ -1,7 +1,3 @@
-branches:
-  only:
-    - master
-    
 language: cpp
 compiler:
     - gcc
@@ -16,16 +12,13 @@ sudo: false
 env:
   - TYPE=Debug DEVSPACE=$HOME
 
-cache:
-  directories:
-    - $HOME/dcmtk
-    - $HOME/openjpeg-version.2.1
-
 install:
   #dcmtk
   - cd $HOME
   - "[ -d dcmtk ] || git clone git://git.dcmtk.org/dcmtk.git"
-  - cd dcmtk && git pull && mkdir -p build-$TYPE && cd build-$TYPE
+  - cd dcmtk
+  - git checkout 5371e1d84526e7544ab7e70fb47e3cdb4e9231b2 
+  - mkdir -p build-$TYPE && cd build-$TYPE
   - cmake .. -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=$HOME/dcmtk/$TYPE
   - make -j8 install
 
@@ -39,4 +32,19 @@ install:
 
 script:
   - cd $TRAVIS_BUILD_DIR && mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DOPENJPEG=$HOME/openjpeg/$TYPE -DDCMTK_DIR=$HOME/dcmtk/build-$TYPE -DCMAKE_INSTALL_PREFIX=$HOME/fmjpeg2koj/$TYPE && make -j8 install
+  - cmake .. -DOPENJPEG=$HOME/openjpeg/$TYPE -DDCMTK_DIR=$HOME/dcmtk/build-$TYPE -DCMAKE_INSTALL_PREFIX=$HOME/fmjpeg2koj/$TYPE 
+  - make -j8 install
+before_deploy:
+- cd $TRAVIS_BUILD_DIR/..
+- zip -r latest.zip fmjpeg2koj/$TYPE dcmtk/$TYPE
+- mkdir -p dpl_cd_upload
+- mv latest.zip $TRAVIS_BUILD_DIR/../dpl_cd_upload/fmjpeg2koj-$TRAVIS_OS_NAME.zip
+deploy:
+  provider: s3
+  access_key_id: AKIAJYJPUJU2KFTMOVHA
+  secret_access_key:
+    secure: X54YKcetoyNhzMBCz3WfjEU8fA6i/Fyd9UVxBGKNA4X1HdxIFRGCjSTD33WywZtIhHuMxDsOND9QD/9kzFVnqFRFyE9ShQs7vDXOKq39l/Jwzx4xefI7VtaRfQM0m3tmLwLiIk9kEad5h/oO/vBMavRFA3NtbLKAuqDkcOpSp0OrU8gjnHfQnFkbLTkO68nIoRc/myB8kk/B6KmMOIoeqnZ9mTxOeKcNtfN6boW2gpxKNkQaQGI+1dLNjBdaITGztgfZUp6D2hj+6Ap2c+HBJ/394PwIiMzhOGC9F/f4OIwPmyQQx4TkJsHVhIMsydd+BLYazWi/ObJvDZc4/N8pI/jvnaXMCXanbDzeNBUUg0SrqiGBBlvSZVT6wsXq7E5kRAIsU0RoFxKzWRtPeXPsUqlaSKz7LLlVLO1Q4tMoq/snVq+LiUMqwTOh/k6NPcahMIpSwhvPUr4TRRBMWnzkEF97iZK7/O0ikAWBMp/0FrUVYRgn2Prb+irGkCQuNnajIYspiyp1jN3k9OCXnM0a3LqMoLmvGnFaozrePwN00mah/ZvdrtjXwEjuMngUvuI72D6v7fQHq7zX28aELd7+d4ZhlJdXiKIF1LKi/g2k+u31PGlwpr7gRqZoAD2VdUUcZKqPPTXu4DJngCfXaQ0Sg+hALhY0L2b327OG0zJyWQk=
+  bucket: draconpern-buildcache
+  acl: public_read
+  skip_cleanup: true
+  local_dir: dpl_cd_upload 
