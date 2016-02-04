@@ -9,7 +9,7 @@ os:
 sudo: false
 
 env:
-  - TYPE=Debug DEVSPACE=$TRAVIS_BUILD_DIR/..
+  - TYPE=Release DEVSPACE=$TRAVIS_BUILD_DIR/..
 
 install:
   #dcmtk
