@@ -28,7 +28,7 @@ install:
 
 script:
   - cd $TRAVIS_BUILD_DIR && mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/fmjpeg2koj/$TYPE 
+  - cmake .. -DBUILD_SHARED_LIBS=OFF -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/fmjpeg2koj/$TYPE 
   - make -j8 install
 before_deploy:
 - cd $DEVSPACE
