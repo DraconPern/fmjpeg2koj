@@ -2,8 +2,7 @@ language: cpp
 compiler:
     - gcc
 
-os:
-    - linux
+os:    
     - osx
 
 # use containers
