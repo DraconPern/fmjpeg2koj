@@ -12,20 +12,17 @@ env:
   - TYPE=Release DEVSPACE=$TRAVIS_BUILD_DIR/..
 
 install:
-  #dcmtk
+  #dcmtk  
   - cd $DEVSPACE
-  - "[ -d dcmtk ] || git clone git://git.dcmtk.org/dcmtk.git"
-  - cd dcmtk
-  - git checkout 5371e1d84526e7544ab7e70fb47e3cdb4e9231b2 
-  - mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/dcmtk/$TYPE
-  - make -j8 install
+  - wget http://draconpern-buildcache.s3.amazonaws.com/dcmtk-$TRAVIS_OS_NAME.zip
+  - unzip dcmtk-$TRAVIS_OS_NAME.zip
 
   #openjpeg
   - cd $DEVSPACE
   - wget https://github.com/uclouvain/openjpeg/archive/version.2.1.tar.gz
   - tar -xzf version.2.1.tar.gz
-  - cd openjpeg-version.2.1 && mkdir -p build-$TYPE && cd build-$TYPE
+  - mv openjpeg-version.2.1 openjpeg
+  - cd openjpeg && mkdir -p build-$TYPE && cd build-$TYPE
   - cmake .. -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/openjpeg/$TYPE
   - make -j8 install
 
@@ -35,7 +32,7 @@ script:
   - make -j8 install
 before_deploy:
 - cd $DEVSPACE
-- zip -r latest.zip fmjpeg2koj/$TYPE dcmtk/$TYPE
+- zip -r latest.zip fmjpeg2koj/$TYPE openjpeg/$TYPE
 - mkdir -p dpl_cd_upload
 - mv latest.zip $DEVSPACE/dpl_cd_upload/fmjpeg2koj-$TRAVIS_OS_NAME.zip
 deploy:
