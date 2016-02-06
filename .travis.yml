@@ -23,7 +23,7 @@ install:
   - tar -xzf version.2.1.tar.gz
   - mv openjpeg-version.2.1 openjpeg
   - cd openjpeg && mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=$DEVSPACE/openjpeg/$TYPE
+  - cmake .. -DBUILD_SHARED_LIBS=OFF -DBUILD_THIRDPARTY=ON -DCMAKE_INSTALL_PREFIX=$DEVSPACE/openjpeg/$TYPE
   - make -j8 install
 
 script:
