@@ -24,13 +24,13 @@
 #include "dcmtk/dcmdata/dctypes.h"  /* for Uint32 */
 #include "djcparam.h" /* for class DJP2KCodecParameter */
 
-class DJP2KCodecParameter;
-class DJP2KLosslessEncoder;
-class DJP2KNearLosslessEncoder;
+class DJPEG2KCodecParameter;
+class DJPEG2KLosslessEncoder;
+class DJPEG2KNearLosslessEncoder;
 
 /** singleton class that registers encoders for all supported JPEG-LS processes.
  */
-class FMJPEG2K_EXPORT FMJP2KEncoderRegistration
+class FMJPEG2K_EXPORT FMJPEG2KEncoderRegistration
 {
 public:
 
@@ -76,13 +76,13 @@ private:
   static OFBool registered_;
 
   /// pointer to codec parameter shared by all encoders
-  static DJP2KCodecParameter *cp_;
+  static DJPEG2KCodecParameter *cp_;
 
   /// pointer to encoder for lossless JPEG-LS
-  static DJP2KLosslessEncoder  *losslessencoder_;
+  static DJPEG2KLosslessEncoder  *losslessencoder_;
 
   /// pointer to encoder for lossy JPEG-LS
-  static DJP2KNearLosslessEncoder *nearlosslessencoder_;
+  static DJPEG2KNearLosslessEncoder *nearlosslessencoder_;
 
 };
 

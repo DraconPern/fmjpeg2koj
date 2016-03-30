@@ -22,12 +22,12 @@
 #include "dcmtk/ofstd/oftypes.h"      /* for OFBool */
 #include "djlsutil.h"  /* for enums */
 
-class DJP2KCodecParameter;
-class DJP2KDecoder;
+class DJPEG2KCodecParameter;
+class DJPEG2KDecoder;
 
 /** singleton class that registers decoders for all supported JPEG-LS processes.
  */
-class FMJPEG2K_EXPORT FMJP2KDecoderRegistration
+class FMJPEG2K_EXPORT FMJPEG2KDecoderRegistration
 {
 public:
 
@@ -64,10 +64,10 @@ private:
   static OFBool registered_;
 
   /// pointer to codec parameter shared by all decoders
-  static DJP2KCodecParameter *cp_;
+  static DJPEG2KCodecParameter *cp_;
 
   /// pointer to decoder
-  static DJP2KDecoder *decoder_;  
+  static DJPEG2KDecoder *decoder_;  
 };
 
 #endif

@@ -24,7 +24,7 @@
 
 /** representation parameter for JPEG-LS
  */
-class FMJPEG2K_EXPORT FMJP2KRepresentationParameter: public DcmRepresentationParameter
+class FMJPEG2K_EXPORT FMJPEG2KRepresentationParameter: public DcmRepresentationParameter
 {
 public:
 
@@ -32,15 +32,15 @@ public:
    *  @param nearlosslessDeviation used as parameter NEAR in JPEG-LS nearlossless-encoding process
    *  @param losslessProcess true if lossless process is requested
    */
-  FMJP2KRepresentationParameter(
+  FMJPEG2KRepresentationParameter(
     Uint16 PSNR = 0,
     OFBool losslessProcess = OFTrue);
 
   /// copy constructor
-  FMJP2KRepresentationParameter(const FMJP2KRepresentationParameter& arg);
+  FMJPEG2KRepresentationParameter(const FMJPEG2KRepresentationParameter& arg);
 
   /// destructor
-  virtual ~FMJP2KRepresentationParameter();
+  virtual ~FMJPEG2KRepresentationParameter();
 
   /** this methods creates a copy of type DcmRepresentationParameter *
    *  it must be overweritten in every subclass.

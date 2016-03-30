@@ -22,21 +22,21 @@
 #include "djcodecd.h"
 
 // initialization of static members
-OFBool FMJP2KDecoderRegistration::registered_                            = OFFalse;
-DJP2KCodecParameter *FMJP2KDecoderRegistration::cp_                       = NULL;
-DJP2KDecoder *FMJP2KDecoderRegistration::decoder_         = NULL;
+OFBool FMJPEG2KDecoderRegistration::registered_                            = OFFalse;
+DJPEG2KCodecParameter *FMJPEG2KDecoderRegistration::cp_                       = NULL;
+DJPEG2KDecoder *FMJPEG2KDecoderRegistration::decoder_         = NULL;
 
-void FMJP2KDecoderRegistration::registerCodecs(
+void FMJPEG2KDecoderRegistration::registerCodecs(
     J2K_UIDCreation uidcreation,
     J2K_PlanarConfiguration planarconfig,
     OFBool ignoreOffsetTable)
 {
   if (! registered_)
   {
-    cp_ = new DJP2KCodecParameter(uidcreation, planarconfig, ignoreOffsetTable);
+    cp_ = new DJPEG2KCodecParameter(uidcreation, planarconfig, ignoreOffsetTable);
     if (cp_)
     {
-      decoder_ = new DJP2KDecoder();
+      decoder_ = new DJPEG2KDecoder();
       if (decoder_) DcmCodecList::registerCodec(decoder_, NULL, cp_);
     
       registered_ = OFTrue;
@@ -44,7 +44,7 @@ void FMJP2KDecoderRegistration::registerCodecs(
   }
 }
 
-void FMJP2KDecoderRegistration::cleanup()
+void FMJPEG2KDecoderRegistration::cleanup()
 {
   if (registered_)
   {
@@ -60,7 +60,7 @@ void FMJP2KDecoderRegistration::cleanup()
   }
 }
 
-OFString FMJP2KDecoderRegistration::getLibraryVersionString()
+OFString FMJPEG2KDecoderRegistration::getLibraryVersionString()
 {
     return FMJPEG2K_JPEG_VERSION_STRING;
 }

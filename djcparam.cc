@@ -19,7 +19,7 @@
 #include "djcparam.h"
 #include "dcmtk/ofstd/ofstd.h"
 
-DJP2KCodecParameter::DJP2KCodecParameter(
+DJPEG2KCodecParameter::DJPEG2KCodecParameter(
      OFBool jp2k_optionsEnabled,     
      Uint16 jp2k_cblkwidth,
 	 Uint16 jp2k_cblkheight,     
@@ -45,7 +45,7 @@ DJP2KCodecParameter::DJP2KCodecParameter(
 }
 
 
-DJP2KCodecParameter::DJP2KCodecParameter(
+DJPEG2KCodecParameter::DJPEG2KCodecParameter(
     J2K_UIDCreation uidCreation,
     J2K_PlanarConfiguration planarConfiguration,
     OFBool ignoreOffsetTble)
@@ -63,7 +63,7 @@ DJP2KCodecParameter::DJP2KCodecParameter(
 {
 }
 
-DJP2KCodecParameter::DJP2KCodecParameter(const DJP2KCodecParameter& arg)
+DJPEG2KCodecParameter::DJPEG2KCodecParameter(const DJPEG2KCodecParameter& arg)
 : DcmCodecParameter(arg)
 
 , jp2k_optionsEnabled_(arg.jp2k_optionsEnabled_)
@@ -79,16 +79,16 @@ DJP2KCodecParameter::DJP2KCodecParameter(const DJP2KCodecParameter& arg)
 {
 }
 
-DJP2KCodecParameter::~DJP2KCodecParameter()
+DJPEG2KCodecParameter::~DJPEG2KCodecParameter()
 {
 }
 
-DcmCodecParameter *DJP2KCodecParameter::clone() const
+DcmCodecParameter *DJPEG2KCodecParameter::clone() const
 {
-  return new DJP2KCodecParameter(*this);
+  return new DJPEG2KCodecParameter(*this);
 }
 
-const char *DJP2KCodecParameter::className() const
+const char *DJPEG2KCodecParameter::className() const
 {
-  return "DJP2KCodecParameter";
+  return "DJPEG2KCodecParameter";
 }

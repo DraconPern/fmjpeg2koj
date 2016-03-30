@@ -157,7 +157,7 @@ LICENSE_FILE_DECLARE_COMMAND_LINE_OPTIONS
         {
           app.printHeader(OFTrue /*print host identifier*/);
           COUT << OFendl << "External libraries used:" << OFendl;
-          COUT << "- " << FMJP2KDecoderRegistration::getLibraryVersionString() << OFendl;
+          COUT << "- " << FMJPEG2KDecoderRegistration::getLibraryVersionString() << OFendl;
           return 0;
         }
       }
@@ -258,7 +258,7 @@ LICENSE_FILE_EVALUATE_COMMAND_LINE_OPTIONS
     OFLOG_DEBUG(dcmdjplsLogger, rcsid << OFendl);
 
     // register global decompression codecs
-    FMJP2KDecoderRegistration::registerCodecs(opt_uidcreation, opt_planarconfig, opt_ignoreOffsetTable);
+    FMJPEG2KDecoderRegistration::registerCodecs(opt_uidcreation, opt_planarconfig, opt_ignoreOffsetTable);
 
     /* make sure data dictionary is loaded */
     if (!dcmDataDict.isDictionaryLoaded())
@@ -327,7 +327,7 @@ LICENSE_FILE_EVALUATE_COMMAND_LINE_OPTIONS
     OFLOG_INFO(dcmdjplsLogger, "conversion successful");
 
     // deregister global decompression codecs
-    FMJP2KDecoderRegistration::cleanup();
+    FMJPEG2KDecoderRegistration::cleanup();
 
     return 0;
 }

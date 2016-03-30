@@ -24,7 +24,7 @@
 #include "dldefine.h"
 
 /* forward declaration */
-class DJP2KCodecParameter;
+class DJPEG2KCodecParameter;
 
 /** abstract codec class for JPEG-2000 decoders.
  *  This abstract class contains most of the application logic
@@ -32,15 +32,15 @@ class DJP2KCodecParameter;
  *  This class only supports decompression, it neither implements
  *  encoding nor transcoding.
  */
-class FMJPEG2K_EXPORT DJP2KDecoderBase: public DcmCodec
+class FMJPEG2K_EXPORT DJPEG2KDecoderBase: public DcmCodec
 {
 public:
 
   /// default constructor
-  DJP2KDecoderBase();
+  DJPEG2KDecoderBase();
 
   /// destructor
-  virtual ~DJP2KDecoderBase();
+  virtual ~DJPEG2KDecoderBase();
 
   /** decompresses the given pixel sequence and
    *  stores the result in the given uncompressedPixelData element.
@@ -202,7 +202,7 @@ private:
    */
   static OFCondition decodeFrame(
     DcmPixelSequence * fromPixSeq,
-    const DJP2KCodecParameter *cp,
+    const DJPEG2KCodecParameter *cp,
     DcmItem *dataset,
     Uint32 frameNo,
     Uint32& startFragment,
@@ -308,7 +308,7 @@ private:
 
 /** codec class for JPEG-2000 lossy and lossless TS decoding
  */
-class FMJPEG2K_EXPORT DJP2KDecoder : public DJP2KDecoderBase
+class FMJPEG2K_EXPORT DJPEG2KDecoder : public DJPEG2KDecoderBase
 {
 
 };
