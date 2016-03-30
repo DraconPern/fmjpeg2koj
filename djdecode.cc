@@ -62,5 +62,5 @@ void FMJP2KDecoderRegistration::cleanup()
 
 OFString FMJP2KDecoderRegistration::getLibraryVersionString()
 {
-    return FMJP2K_JPEG_VERSION_STRING;
+    return FMJPEG2K_JPEG_VERSION_STRING;
 }

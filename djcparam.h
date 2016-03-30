@@ -24,7 +24,7 @@
 
 /** codec parameter for JPEG-2000 codecs
  */
-class FMJP2K_EXPORT DJP2KCodecParameter: public DcmCodecParameter
+class FMJPEG2K_EXPORT DJP2KCodecParameter: public DcmCodecParameter
 {
 public:
 

@@ -30,7 +30,7 @@ class DJP2KNearLosslessEncoder;
 
 /** singleton class that registers encoders for all supported JPEG-LS processes.
  */
-class FMJP2K_EXPORT FMJP2KEncoderRegistration
+class FMJPEG2K_EXPORT FMJP2KEncoderRegistration
 {
 public:
 

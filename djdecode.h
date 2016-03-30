@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef FMJP2K_DJDECODE_H
-#define FMJP2K_DJDECODE_H
+#ifndef FMJPEG2K_DJDECODE_H
+#define FMJPEG2K_DJDECODE_H
 
 #include "dcmtk/config/osconfig.h"
 #include "dcmtk/ofstd/oftypes.h"      /* for OFBool */
@@ -27,7 +27,7 @@ class DJP2KDecoder;
 
 /** singleton class that registers decoders for all supported JPEG-LS processes.
  */
-class FMJP2K_EXPORT FMJP2KDecoderRegistration
+class FMJPEG2K_EXPORT FMJP2KDecoderRegistration
 {
 public:
 

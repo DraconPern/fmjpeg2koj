@@ -34,7 +34,7 @@ class DicomImage;
  *  This class only supports compression, it neither implements
  *  decoding nor transcoding.
  */
-class FMJP2K_EXPORT DJP2KEncoderBase : public DcmCodec
+class FMJPEG2K_EXPORT DJP2KEncoderBase : public DcmCodec
 {
 public:
 
@@ -344,7 +344,7 @@ private:
 
 /** codec class for JPEG-2000 lossless only TS encoding
  */
-class FMJP2K_EXPORT DJP2KLosslessEncoder : public DJP2KEncoderBase
+class FMJPEG2K_EXPORT DJP2KLosslessEncoder : public DJP2KEncoderBase
 {
   /** returns the transfer syntax that this particular codec
    *  is able to encode
@@ -355,7 +355,7 @@ class FMJP2K_EXPORT DJP2KLosslessEncoder : public DJP2KEncoderBase
 
 /** codec class for JPEG-2000 lossy and lossless TS encoding
  */
-class FMJP2K_EXPORT DJP2KNearLosslessEncoder : public DJP2KEncoderBase
+class FMJPEG2K_EXPORT DJP2KNearLosslessEncoder : public DJP2KEncoderBase
 {
   /** returns the transfer syntax that this particular codec
    *  is able to encode
