@@ -83,8 +83,8 @@ int main(int argc, char *argv[])
   E_TransferSyntax opt_ixfer = EXS_Unknown;
 
   // parameter
-  JLS_UIDCreation opt_uidcreation = EJLSUC_default;
-  JLS_PlanarConfiguration opt_planarconfig = EJLSPC_restore;
+  J2K_UIDCreation opt_uidcreation = EJ2KUC_default;
+  J2K_PlanarConfiguration opt_planarconfig = EJ2KPC_restore;
   OFBool opt_ignoreOffsetTable = OFFalse;
 
 #ifdef USE_LICENSE_FILE
@@ -164,7 +164,7 @@ LICENSE_FILE_DECLARE_COMMAND_LINE_OPTIONS
 #ifdef WITH_ZLIB
           COUT << "- ZLIB, Version " << zlibVersion() << OFendl;
 #endif
-          COUT << "- " << DJLSDecoderRegistration::getLibraryVersionString() << OFendl;
+          COUT << "- " << FMJP2KDecoderRegistration::getLibraryVersionString() << OFendl;
           return 0;
         }
       }
@@ -183,15 +183,15 @@ LICENSE_FILE_EVALUATE_COMMAND_LINE_OPTIONS
 #endif
 
       cmd.beginOptionBlock();
-      if (cmd.findOption("--planar-restore")) opt_planarconfig = EJLSPC_restore;
-      if (cmd.findOption("--planar-auto")) opt_planarconfig = EJLSPC_auto;
-      if (cmd.findOption("--color-by-pixel")) opt_planarconfig = EJLSPC_colorByPixel;
-      if (cmd.findOption("--color-by-plane")) opt_planarconfig = EJLSPC_colorByPlane;
+      if (cmd.findOption("--planar-restore")) opt_planarconfig = EJ2KPC_restore;
+      if (cmd.findOption("--planar-auto")) opt_planarconfig = EJ2KPC_auto;
+      if (cmd.findOption("--color-by-pixel")) opt_planarconfig = EJ2KPC_colorByPixel;
+      if (cmd.findOption("--color-by-plane")) opt_planarconfig = EJ2KPC_colorByPlane;
       cmd.endOptionBlock();
 
       cmd.beginOptionBlock();
-      if (cmd.findOption("--uid-default")) opt_uidcreation = EJLSUC_default;
-      if (cmd.findOption("--uid-always")) opt_uidcreation = EJLSUC_always;
+      if (cmd.findOption("--uid-default")) opt_uidcreation = EJ2KUC_default;
+      if (cmd.findOption("--uid-always")) opt_uidcreation = EJ2KUC_always;
       cmd.endOptionBlock();
 
       if (cmd.findOption("--ignore-offsettable")) opt_ignoreOffsetTable = OFTrue;
