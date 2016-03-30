@@ -7,7 +7,7 @@
  *
  *
  *
- *  Module:  fmjpeg2k
+ *  Module:  FMJP2K
  *
  *  Author:  Ing-Long Eric Kuo
  *
@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef FMJPEG2K_DJLSUTILS_H
-#define FMJPEG2K_DJLSUTILS_H
+#ifndef FMJP2K_DJLSUTILS_H
+#define FMJP2K_DJLSUTILS_H
 
 #include "dcmtk/config/osconfig.h"
 #include "dcmtk/ofstd/ofcond.h"   /* for class OFCondition */
@@ -24,19 +24,19 @@
 #include "dldefine.h"
 
 
-#define FMJPEG2K_JPEG_VERSION_STRING "OpenJPEG (unmodified)"
+#define FMJP2K_JPEG_VERSION_STRING "OpenJPEG (unmodified)"
 
 
 // global definitions for logging mechanism provided by the oflog module
 
-extern FMJPEG2K_EXPORT OFLogger DCM_fmjp2kLogger;
+extern FMJP2K_EXPORT OFLogger DCM_fmjp2kLogger;
 
-#define FMJPEG2K_TRACE(msg) OFLOG_TRACE(DCM_fmjp2kLogger, msg)
-#define FMJPEG2K_DEBUG(msg) OFLOG_DEBUG(DCM_fmjp2kLogger, msg)
-#define FMJPEG2K_INFO(msg)  OFLOG_INFO(DCM_fmjp2kLogger, msg)
-#define FMJPEG2K_WARN(msg)  OFLOG_WARN(DCM_fmjp2kLogger, msg)
-#define FMJPEG2K_ERROR(msg) OFLOG_ERROR(DCM_fmjp2kLogger, msg)
-#define FMJPEG2K_FATAL(msg) OFLOG_FATAL(DCM_fmjp2kLogger, msg)
+#define FMJP2K_TRACE(msg) OFLOG_TRACE(DCM_fmjp2kLogger, msg)
+#define FMJP2K_DEBUG(msg) OFLOG_DEBUG(DCM_fmjp2kLogger, msg)
+#define FMJP2K_INFO(msg)  OFLOG_INFO(DCM_fmjp2kLogger, msg)
+#define FMJP2K_WARN(msg)  OFLOG_WARN(DCM_fmjp2kLogger, msg)
+#define FMJP2K_ERROR(msg) OFLOG_ERROR(DCM_fmjp2kLogger, msg)
+#define FMJP2K_FATAL(msg) OFLOG_FATAL(DCM_fmjp2kLogger, msg)
 
 
 // include this file in doxygen documentation
@@ -107,48 +107,48 @@ enum J2K_CompressionBitDepth
 // CONDITION CONSTANTS
 
 /// error condition constant: Too small buffer used for image data (internal error)
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KUncompressedBufferTooSmall;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KUncompressedBufferTooSmall;
 
 /// error condition constant: Too small buffer used for compressed image data (internal error)
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KCompressedBufferTooSmall;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KCompressedBufferTooSmall;
 
 /// error condition constant: The image uses some features which the codec does not support
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KCodecUnsupportedImageType;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KCodecUnsupportedImageType;
 
 /// error condition constant: The codec was fed with invalid parameters (e.g. height = -1)
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KCodecInvalidParameters;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KCodecInvalidParameters;
 
 /// error condition constant: The codec was fed with unsupported parameters (e.g. 32 bit per sample)
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KCodecUnsupportedValue;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KCodecUnsupportedValue;
 
 /// error condition constant: The compressed image is invalid
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KInvalidCompressedData;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KInvalidCompressedData;
 
 /// error condition constant: The images' color transformation is not supported in this bit depth
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KUnsupportedBitDepthForTransform;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KUnsupportedBitDepthForTransform;
 
 /// error condition constant: The images' color transformation is not supported
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KUnsupportedColorTransform;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KUnsupportedColorTransform;
 
 /// error condition constant: Unsupported bit depth in JPEG-LS transfer syntax
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KUnsupportedBitDepth;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KUnsupportedBitDepth;
 
 /// error condition constant: Cannot compute number of fragments for JPEG-LS frame
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KCannotComputeNumberOfFragments;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KCannotComputeNumberOfFragments;
 
 /// error condition constant: Image data mismatch between DICOM header and JPEG-LS bitstream
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KImageDataMismatch;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KImageDataMismatch;
 
 /// error condition constant: Unsupported photometric interpretation for near-lossless JPEG-LS compression
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KUnsupportedPhotometricInterpretation;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KUnsupportedPhotometricInterpretation;
 
 /// error condition constant: Unsupported pixel representation for near-lossless JPEG-LS compression
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KUnsupportedPixelRepresentation;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KUnsupportedPixelRepresentation;
 
 /// error condition constant: Unsupported type of image for JPEG-LS compression
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KUnsupportedImageType;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KUnsupportedImageType;
 
 /// error condition constant: Trailing data after image
-extern FMJPEG2K_EXPORT const OFConditionConst EC_J2KTooMuchCompressedData;
+extern FMJP2K_EXPORT const OFConditionConst EC_J2KTooMuchCompressedData;
 
 #endif

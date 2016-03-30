@@ -516,7 +516,7 @@ OFCondition DJP2KEncoderBase::losslessRawEncode(
 		for (unsigned long i=0; (i<frameCount) && (result.good()); ++i)
 		{
 			// compress frame
-			FMJPEG2K_DEBUG("JPEG-2000 encoder processes frame " << (i+1) << " of " << frameCount);
+			FMJP2K_DEBUG("JPEG-2000 encoder processes frame " << (i+1) << " of " << frameCount);
 			result = compressRawFrame(framePointer, bitsAllocated, columns, rows,
 				samplesPerPixel, planarConfiguration, pixelRepresentation, photometricInterpretation,
 				pixelSequence, offsetList, compressedFrameSize, djcp);
@@ -755,7 +755,7 @@ OFCondition DJP2KEncoderBase::RenderedEncode(
 		for (unsigned long i=0; (i<frameCount) && (result.good()); ++i)
 		{
 			// compress frame
-			FMJPEG2K_DEBUG("JPEG-2000 encoder processes frame " << (i+1) << " of " << frameCount);
+			FMJP2K_DEBUG("JPEG-2000 encoder processes frame " << (i+1) << " of " << frameCount);
 			result = compressRenderedFrame(pixelSequence, dimage,
 				photometricInterpretation, offsetList, compressedFrameSize, djcp, i, djrp);
 

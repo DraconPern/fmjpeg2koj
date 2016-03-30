@@ -32,7 +32,7 @@ class DJP2KCodecParameter;
  *  This class only supports decompression, it neither implements
  *  encoding nor transcoding.
  */
-class FMJPEG2K_EXPORT DJP2KDecoderBase: public DcmCodec
+class FMJP2K_EXPORT DJP2KDecoderBase: public DcmCodec
 {
 public:
 
@@ -308,7 +308,7 @@ private:
 
 /** codec class for JPEG-2000 lossy and lossless TS decoding
  */
-class FMJPEG2K_EXPORT DJP2KDecoder : public DJP2KDecoderBase
+class FMJP2K_EXPORT DJP2KDecoder : public DJP2KDecoderBase
 {
 
 };

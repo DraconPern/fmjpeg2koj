@@ -38,9 +38,6 @@
 #include "memory_file.h"
 
 
-
-
-
 DJP2KDecoderBase::DJP2KDecoderBase()
 : DcmCodec()
 {
@@ -151,7 +148,7 @@ OFCondition DJP2KDecoderBase::decode(
 
   while (result.good() && !done)
   {
-      FMJPEG2K_DEBUG("JPEG-2000 decoder processes frame " << (currentFrame+1));
+      FMJP2K_DEBUG("JPEG-2000 decoder processes frame " << (currentFrame+1));
 
       result = decodeFrame(pixSeq, djcp, dataset, currentFrame, currentItem, pixeldata8, frameSize,
           imageFrames, imageColumns, imageRows, imageSamplesPerPixel, bytesPerSample);
@@ -252,7 +249,7 @@ OFCondition DJP2KDecoderBase::decodeFrame(
   if (result.good())
   {
     // We got all the data we need from the dataset, let's start decoding
-    FMJPEG2K_DEBUG("Starting to decode frame " << frameNo << " with fragment " << currentItem);
+    FMJP2K_DEBUG("Starting to decode frame " << frameNo << " with fragment " << currentItem);
     result = decodeFrame(fromPixSeq, djcp, dataset, frameNo, currentItem, buffer, bufSize,
         imageFrames, imageColumns, imageRows, imageSamplesPerPixel, bytesPerSample);
   }

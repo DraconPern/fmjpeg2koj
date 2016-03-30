@@ -24,10 +24,10 @@
 #include "dcmtk/ofstd/ofdefine.h"
 
 
-#ifdef fmjpeg2k_EXPORTS
-#define FMJPEG2K_EXPORT DCMTK_DECL_EXPORT
+#ifdef fmjp2k_EXPORTS
+#define FMJP2K_EXPORT DCMTK_DECL_EXPORT
 #else
-#define FMJPEG2K_EXPORT DCMTK_DECL_IMPORT
+#define FMJP2K_EXPORT DCMTK_DECL_IMPORT
 #endif
 
 

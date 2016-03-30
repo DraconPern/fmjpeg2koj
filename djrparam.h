@@ -24,7 +24,7 @@
 
 /** representation parameter for JPEG-LS
  */
-class FMJPEG2K_EXPORT FMJP2KRepresentationParameter: public DcmRepresentationParameter
+class FMJP2K_EXPORT FMJP2KRepresentationParameter: public DcmRepresentationParameter
 {
 public:
 
