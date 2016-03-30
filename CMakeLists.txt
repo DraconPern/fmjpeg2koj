@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 2.4)
 
-project(fmjpeg2k)
+project(fmjp2k)
 
-set (fmjpeg2k_VERSION_MAJOR 1)
-set (fmjpeg2k_VERSION_MINOR 0)
-set (fmjpeg2k_VERSION_BUILD 2)
-set(fmjpeg2k_VERSION "${fmjpeg2k_VERSION_MAJOR}.${fmjpeg2k_VERSION_MINOR}.${fmjpeg2k_VERSION_BUILD}")
+set (fmjp2k_VERSION_MAJOR 1)
+set (fmjp2k_VERSION_MINOR 0)
+set (fmjp2k_VERSION_BUILD 2)
+set(fmjp2k_VERSION "${fmjp2k_VERSION_MAJOR}.${fmjp2k_VERSION_MINOR}.${fmjp2k_VERSION_BUILD}")
 
-option(BUILD_SHARED_LIBS "Build fmjpeg2k shared library and link executables against it." ON)
+option(BUILD_SHARED_LIBS "Build fmjp2k shared library and link executables against it." ON)
 
 find_package(dcmtk REQUIRED CONFIG HINTS ${DCMTK_DIR})
 find_package(openjpeg REQUIRED CONFIG HINTS ${OPENJPEG})
@@ -17,7 +17,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR} ${DCMTK_INCLUDE_DIRS} ${OPENJPEG_INCLUDE
 add_definitions(-DOPJ_STATIC)
 add_definitions(-Dfmjpeg2k_EXPORTS)
 
-set(fmjpeg2k_HEADERS
+set(fmjp2k_HEADERS
 	djcodecd.h
     djcodece.h
 	djcparam.h
@@ -30,7 +30,7 @@ set(fmjpeg2k_HEADERS
 	memory_file.h
 )
 
-set(fmjpeg2k_SRCS
+set(fmjp2k_SRCS
     ${fmjpeg2k_HEADERS}    
 	djcodecd.cc
 	djcodece.cc
@@ -96,16 +96,16 @@ install(
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
-  "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kConfigVersion.cmake"
-  VERSION ${fmjpeg2k_VERSION}
+  "${CMAKE_CURRENT_BINARY_DIR}/fmjp2k/fmjp2kConfigVersion.cmake"
+  VERSION ${fmjp2k_VERSION}
   COMPATIBILITY AnyNewerVersion
 )
 
-export(EXPORT fmjpeg2kTargets
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kTargets.cmake"  
+export(EXPORT fmjp2kTargets
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/fmjp2k/fmjp2kTargets.cmake"  
 )
-configure_file( ${CMAKE_SOURCE_DIR}/cmake/fmjpeg2kConfig.cmake.in
-  ${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2kConfig.cmake
+configure_file( ${CMAKE_SOURCE_DIR}/cmake/fmjp2kConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/fmjp2kConfig.cmake
   @ONLY
 )
 #configure_file(cmake/fmjpeg2kConfig.cmake
@@ -114,9 +114,9 @@ configure_file( ${CMAKE_SOURCE_DIR}/cmake/fmjpeg2kConfig.cmake.in
 #)
 
 set(ConfigPackageLocation lib/cmake/fmjpeg2k)
-install(EXPORT fmjpeg2kTargets
+install(EXPORT fmjp2kTargets
   FILE
-    fmjpeg2kTargets.cmake
+    fmjp2kTargets.cmake
   DESTINATION
     ${ConfigPackageLocation}
 )
@@ -124,8 +124,8 @@ install(EXPORT fmjpeg2kTargets
 
 install(
   FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2kConfig.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kConfigVersion.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/fmjp2kConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/fmjp2k/fmjp2kConfigVersion.cmake"
   DESTINATION
     ${ConfigPackageLocation}
   COMPONENT
