@@ -38,10 +38,6 @@
 #include "djlsutil.h"   /* for dcmjpgls typedefs */
 #include "djdecode.h"   /* for JPEG-LS decoder */
 
-#ifdef WITH_ZLIB
-#include <zlib.h>      /* for zlibVersion() */
-#endif
-
 #ifdef USE_LICENSE_FILE
 #include "oflice.h"
 #endif
@@ -161,9 +157,6 @@ LICENSE_FILE_DECLARE_COMMAND_LINE_OPTIONS
         {
           app.printHeader(OFTrue /*print host identifier*/);
           COUT << OFendl << "External libraries used:" << OFendl;
-#ifdef WITH_ZLIB
-          COUT << "- ZLIB, Version " << zlibVersion() << OFendl;
-#endif
           COUT << "- " << FMJP2KDecoderRegistration::getLibraryVersionString() << OFendl;
           return 0;
         }
