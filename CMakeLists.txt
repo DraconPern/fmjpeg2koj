@@ -9,7 +9,7 @@ set(fmjpeg2k_VERSION "${fmjpeg2k_VERSION_MAJOR}.${fmjpeg2k_VERSION_MINOR}.${fmjp
 
 option(BUILD_SHARED_LIBS "Build fmjpeg2k shared library and link executables against it." ON)
 
-find_package(dcmtk REQUIRED CONFIG HINTS ${DCMTK_DIR})
+find_package(DCMTK REQUIRED CONFIG HINTS ${DCMTK_DIR})
 find_package(openjpeg REQUIRED CONFIG HINTS ${OPENJPEG})
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR} ${DCMTK_INCLUDE_DIRS} ${OPENJPEG_INCLUDE_DIRS})
