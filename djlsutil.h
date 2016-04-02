@@ -24,7 +24,7 @@
 #include "dldefine.h"
 
 
-#define FMJPEG2K_JPEG_VERSION_STRING "OpenJPEG (unmodified)"
+#define FMJPEG2K_JPEG_VERSION_STRING "fmjpeg2koj - OpenJPEG (unmodified)"
 
 
 // global definitions for logging mechanism provided by the oflog module
