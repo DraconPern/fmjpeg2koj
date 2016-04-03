@@ -101,7 +101,7 @@ write_basic_package_version_file(
   COMPATIBILITY AnyNewerVersion
 )
 
-export(TARGETS fmjpeg2kTargets
+export(TARGETS fmjpeg2k
   FILE "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2k/fmjpeg2kTargets.cmake"  
 )
 configure_file( ${CMAKE_SOURCE_DIR}/cmake/fmjpeg2kConfig.cmake.in
