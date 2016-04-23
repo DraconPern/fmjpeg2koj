@@ -24,7 +24,7 @@ if(EXISTS ${SELF_DIR}/fmjpeg2kTargets.cmake)
 else()
   if(EXISTS ${SELF_DIR}/fmjpeg2kExports.cmake)
     # This is a build tree
-    set( FMJPEG2K_INCLUDE_DIRS @fmjpeg2k_INCLUDE_PATH@)
+    set( FMJPEG2K_INCLUDE_DIRS "@CMAKE_SOURCE_DIR@")
 
     include(${SELF_DIR}/fmjpeg2kExports.cmake)
 

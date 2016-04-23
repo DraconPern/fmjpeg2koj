@@ -16,10 +16,10 @@
  */
 
 #include "dcmtk/config/osconfig.h"
-#include "djdecode.h"
+#include "fmjpeg2k/djdecode.h"
 #include "dcmtk/dcmdata/dccodec.h"  /* for DcmCodecStruct */
-#include "djcparam.h"
-#include "djcodecd.h"
+#include "fmjpeg2k/djcparam.h"
+#include "fmjpeg2k/djcodecd.h"
 
 // initialization of static members
 OFBool FMJPEG2KDecoderRegistration::registered_                            = OFFalse;

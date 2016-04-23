@@ -16,7 +16,7 @@
  */
 
 #include "dcmtk/config/osconfig.h"
-#include "djrparam.h"
+#include "fmjpeg2k/djrparam.h"
 #include "dcmtk/ofstd/ofstd.h"
 
 FMJPEG2KRepresentationParameter::FMJPEG2KRepresentationParameter(

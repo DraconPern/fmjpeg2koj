@@ -35,8 +35,8 @@
 #include "dcmtk/ofstd/ofconapp.h"
 #include "dcmtk/dcmdata/dcuid.h"      /* for dcmtk version name */
 #include "dcmtk/dcmimage/diregist.h"  /* include to support color images */
-#include "djlsutil.h"   /* for dcmjpgls typedefs */
-#include "djdecode.h"   /* for JPEG-LS decoder */
+#include "fmjpeg2k/djlsutil.h"   /* for dcmjpgls typedefs */
+#include "fmjpeg2k/djdecode.h"   /* for JPEG-LS decoder */
 
 #ifdef USE_LICENSE_FILE
 #include "oflice.h"

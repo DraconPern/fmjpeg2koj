@@ -16,7 +16,7 @@
  */
 
 #include "dcmtk/config/osconfig.h"
-#include "djcparam.h"
+#include "fmjpeg2k/djcparam.h"
 #include "dcmtk/ofstd/ofstd.h"
 
 DJPEG2KCodecParameter::DJPEG2KCodecParameter(

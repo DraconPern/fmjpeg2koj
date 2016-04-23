@@ -35,8 +35,8 @@
 #include "dcmtk/ofstd/ofconapp.h"
 #include "dcmtk/dcmdata/dcuid.h"      /* for dcmtk version name */
 #include "dcmtk/dcmimage/diregist.h"  /* include to support color images */
-#include "djencode.h"   /* for class DJLSEncoderRegistration */
-#include "djrparam.h"   /* for class FMJP2KRepresentationParameter */
+#include "fmjpeg2k/djencode.h"   /* for class DJLSEncoderRegistration */
+#include "fmjpeg2k/djrparam.h"   /* for class FMJP2KRepresentationParameter */
 
 #ifdef USE_LICENSE_FILE
 #include "oflice.h"

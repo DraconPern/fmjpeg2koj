@@ -16,7 +16,7 @@
  */
 
 #include "dcmtk/config/osconfig.h"
-#include "djcodecd.h"
+#include "fmjpeg2k/djcodecd.h"
 
 #include "dcmtk/ofstd/ofstream.h"    /* for ofstream */
 #include "dcmtk/ofstd/ofcast.h"      /* for casts */
@@ -29,13 +29,13 @@
 #include "dcmtk/dcmdata/dcvrpobw.h"  /* for class DcmPolymorphOBOW */
 #include "dcmtk/dcmdata/dcswap.h"    /* for swapIfNecessary() */
 #include "dcmtk/dcmdata/dcuid.h"     /* for dcmGenerateUniqueIdentifer()*/
-#include "djcparam.h"  /* for class DJP2KCodecParameter */
-#include "djerror.h"                 /* for private class DJLSError */
+#include "fmjpeg2k/djcparam.h"  /* for class DJP2KCodecParameter */
+#include "fmjpeg2k/djerror.h"                 /* for private class DJLSError */
 
 // JPEG-2000 library (OpenJPEG) includes
 #include "openjpeg.h"
 
-#include "memory_file.h"
+#include "fmjpeg2k/memory_file.h"
 
 
 
@@ -405,7 +405,21 @@ OFCondition DJPEG2KDecoderBase::decodeFrame(
 	
 	l_stream = opj_stream_create_memory_stream(&mysrc, OPJ_J2K_STREAM_CHUNK_SIZE, true);
 
-	l_codec = opj_create_decompress(OPJ_CODEC_J2K);
+	// figure out codec
+	#define JP2_RFC3745_MAGIC "\x00\x00\x00\x0c\x6a\x50\x20\x20\x0d\x0a\x87\x0a"
+	#define JP2_MAGIC "\x0d\x0a\x87\x0a"
+	/* position 45: "\xff\x52" */
+	#define J2K_CODESTREAM_MAGIC "\xff\x4f\xff\x51"
+
+	OPJ_CODEC_FORMAT format = OPJ_CODEC_UNKNOWN; 
+	if(memcmp(jlsData, JP2_RFC3745_MAGIC, 12) == 0 || memcmp(jlsData, JP2_MAGIC, 4) == 0)
+		format = OPJ_CODEC_JP2;	
+	else if (memcmp(jlsData, J2K_CODESTREAM_MAGIC, 4) == 0)
+		format = OPJ_CODEC_J2K;
+	else
+		format = OPJ_CODEC_J2K;
+
+	l_codec = opj_create_decompress(format);
 
 	opj_set_info_handler(l_codec, msg_callback, NULL);
 	opj_set_warning_handler(l_codec, msg_callback, NULL);

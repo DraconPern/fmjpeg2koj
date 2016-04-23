@@ -16,7 +16,7 @@
  */
 
 #include "dcmtk/config/osconfig.h"
-#include "djlsutil.h"
+#include "fmjpeg2k/djlsutil.h"
 #include "dcmtk/dcmdata/dcerror.h"
 
 OFLogger DCM_fmjp2kLogger = OFLog::getLogger("fmjpeg2k");

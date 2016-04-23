@@ -9,7 +9,7 @@
 */
 
 #include "dcmtk/config/osconfig.h"
-#include "djcodece.h"
+#include "fmjpeg2k/djcodece.h"
 
 // ofstd includes
 #include "dcmtk/ofstd/oflist.h"
@@ -36,16 +36,16 @@
 #include "dcmtk/dcmdata/dcswap.h"    /* for swapIfNecessary */
 
 // dcmjpls includes
-#include "djcparam.h"  /* for class DJP2KCodecParameter */
-#include "djrparam.h"  /* for class D2RepresentationParameter */
-#include "djerror.h"                 /* for private class DJLSError */
+#include "fmjpeg2k/djcparam.h"  /* for class DJP2KCodecParameter */
+#include "fmjpeg2k/djrparam.h"  /* for class D2RepresentationParameter */
+#include "fmjpeg2k/djerror.h"                 /* for private class DJLSError */
 
 // dcmimgle includes
 #include "dcmtk/dcmimgle/dcmimage.h"  /* for class DicomImage */
 
 // JPEG-2000 library (OpenJPEG) includes
 #include "openjpeg.h"
-#include "memory_file.h"
+#include "fmjpeg2k/memory_file.h"
 
 BEGIN_EXTERN_C
 #ifdef HAVE_FCNTL_H
