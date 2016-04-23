@@ -1,7 +1,7 @@
 #include <string.h>
 #include <limits>
 #include <algorithm>
-#include "memory_file.h"
+#include "fmjpeg2k/memory_file.h"
 
 OPJ_UINT32 opj_read_from_memory(void * p_buffer, OPJ_UINT32 nb_bytes, DecodeData* p_user_data)
 {	

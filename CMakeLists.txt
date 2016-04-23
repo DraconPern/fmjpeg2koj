@@ -13,25 +13,25 @@ find_package(DCMTK REQUIRED CONFIG HINTS ${DCMTK_DIR})
 find_package(OpenJPEG REQUIRED CONFIG HINTS ${OPENJPEG})
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${DCMTK_INCLUDE_DIRS} ${OPENJPEG_INCLUDE_DIRS})
-
+LINK_DIRECTORIES(${FMJPEG2K}/lib)
 add_definitions(-DOPJ_STATIC)
 add_definitions(-Dfmjpeg2k_EXPORTS)
 
 set(fmjpeg2k_HEADERS
-	djcodecd.h
-    djcodece.h
-	djcparam.h
-	djdecode.h
-	djencode.h
-	djerror.h
-	djlsutil.h
-	djrparam.h
-	dldefine.h
-	memory_file.h
+	include/fmjpeg2k/djcodecd.h
+	include/fmjpeg2k/djcodece.h
+	include/fmjpeg2k/djcparam.h
+	include/fmjpeg2k/djdecode.h
+	include/fmjpeg2k/djencode.h
+	include/fmjpeg2k/djerror.h
+	include/fmjpeg2k/djlsutil.h
+	include/fmjpeg2k/djrparam.h
+	include/fmjpeg2k/dldefine.h
+	include/fmjpeg2k/memory_file.h
 )
 
 set(fmjpeg2k_SRCS
-    ${fmjpeg2k_HEADERS}    
+    ${fmjpeg2k_HEADERS}
 	djcodecd.cc
 	djcodece.cc
 	djcparam.cc
