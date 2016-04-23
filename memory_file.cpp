@@ -3,44 +3,46 @@
 #include <algorithm>
 #include "fmjpeg2k/memory_file.h"
 
-OPJ_UINT32 opj_read_from_memory(void * p_buffer, OPJ_UINT32 nb_bytes, DecodeData* p_user_data)
-{	
-	DecodeData* srcData = static_cast<DecodeData*>(p_user_data);
-    if (!srcData || !srcData->src_data || srcData->src_size == 0) {
+OPJ_SIZE_T opj_read_from_memory(void * p_buffer, OPJ_SIZE_T p_nb_bytes, DecodeData* p_file);
+OPJ_SIZE_T opj_write_to_memory (void * p_buffer, OPJ_SIZE_T p_nb_bytes, DecodeData* p_file);
+OPJ_OFF_T opj_skip_from_memory (OPJ_OFF_T p_nb_bytes, DecodeData * p_file);
+OPJ_BOOL opj_seek_from_memory (OPJ_OFF_T p_nb_bytes, DecodeData * p_file);
+
+OPJ_SIZE_T opj_read_from_memory(void * p_buffer, OPJ_SIZE_T nb_bytes, DecodeData* p_user_data)
+{		
+    if (!p_user_data || !p_user_data->src_data || p_user_data->src_size == 0) {
         return -1;
     }
     // Reads at EOF return an error code.
-    if (srcData->offset >= srcData->src_size) {
+    if (p_user_data->offset >= p_user_data->src_size) {
         return -1;
     }
-    OPJ_SIZE_T bufferLength = srcData->src_size - srcData->offset;
+    OPJ_SIZE_T bufferLength = p_user_data->src_size - p_user_data->offset;
     OPJ_SIZE_T readlength = nb_bytes < bufferLength ? nb_bytes : bufferLength;
-    memcpy(p_buffer, &srcData->src_data[srcData->offset], readlength);
-    srcData->offset += readlength;
+    memcpy(p_buffer, &p_user_data->src_data[p_user_data->offset], readlength);
+    p_user_data->offset += readlength;
     return readlength;
 }
 
-OPJ_UINT32 opj_write_from_memory (void * p_buffer, OPJ_UINT32 nb_bytes, DecodeData* p_user_data)
-{
-	DecodeData* srcData = static_cast<DecodeData*>(p_user_data);
-    if (!srcData || !srcData->src_data || srcData->src_size == 0) {
+OPJ_SIZE_T opj_write_to_memory (void * p_buffer, OPJ_SIZE_T nb_bytes, DecodeData* p_user_data)
+{	
+    if (!p_user_data || !p_user_data->src_data || p_user_data->src_size == 0) {
         return -1;
     }
     // Writes at EOF return an error code.
-    if (srcData->offset >= srcData->src_size) {
+    if (p_user_data->offset >= p_user_data->src_size) {
         return -1;
     }
-    OPJ_SIZE_T bufferLength = srcData->src_size - srcData->offset;
+    OPJ_SIZE_T bufferLength = p_user_data->src_size - p_user_data->offset;
     OPJ_SIZE_T writeLength = nb_bytes < bufferLength ? nb_bytes : bufferLength;
-    memcpy(&srcData->src_data[srcData->offset], p_buffer, writeLength);
-    srcData->offset += writeLength;
+    memcpy(&p_user_data->src_data[p_user_data->offset], p_buffer, writeLength);
+    p_user_data->offset += writeLength;
     return writeLength;
 }
 
-OPJ_SIZE_T opj_skip_from_memory (OPJ_SIZE_T nb_bytes, DecodeData * p_user_data)
-{
-	DecodeData* srcData = static_cast<DecodeData*>(p_user_data);
-    if (!srcData || !srcData->src_data || srcData->src_size == 0) {
+OPJ_OFF_T opj_skip_from_memory (OPJ_OFF_T nb_bytes, DecodeData * p_user_data)
+{	
+    if (!p_user_data || !p_user_data->src_data || p_user_data->src_size == 0) {
         return -1;
     }
     // Offsets are signed and may indicate a negative skip. Do not support this
@@ -50,47 +52,36 @@ OPJ_SIZE_T opj_skip_from_memory (OPJ_SIZE_T nb_bytes, DecodeData * p_user_data)
     if (nb_bytes < 0) {
         return -1;
     }
-    // FIXME: use std::make_unsigned<OPJ_OFF_T>::type once c++11 lib is OK'd.
-    uint64_t unsignedNbBytes = static_cast<uint64_t>(nb_bytes);
-    // Additionally, the offset may take us beyond the range of a size_t (e.g.
-    // 32-bit platforms). If so, just clamp at EOF.
-    if (unsignedNbBytes > std::numeric_limits<OPJ_SIZE_T>::max() - srcData->offset) {
-        srcData->offset = srcData->src_size;
-    } else {
-        OPJ_SIZE_T checkedNbBytes = static_cast<OPJ_SIZE_T>(unsignedNbBytes);
-        // Otherwise, mimic fseek() semantics to always succeed, even past EOF,
-        // clamping at EOF.  We can get away with this since we don't actually
-        // provide negative relative skips from beyond EOF back to inside the
-        // data, which would be the only reason to need to know exactly how far
-        // beyond EOF we are.
-        srcData->offset = std::min(srcData->offset + checkedNbBytes, srcData->src_size);
-    }
-    return nb_bytes;
+        
+	// check overflow
+	if (/* (nb_bytes > 0) && */(p_user_data->offset > std::numeric_limits<OPJ_SIZE_T>::max() - nb_bytes))
+		return -1;
+		
+	OPJ_SIZE_T newoffset = p_user_data->offset + nb_bytes;
+
+	// skipped past eof?
+	if(newoffset > p_user_data->src_size) {
+		// number of actual skipped bytes
+		nb_bytes = p_user_data->src_size - p_user_data->offset;
+		p_user_data->offset = p_user_data->src_size;		
+	}
+	else {
+		p_user_data->offset = newoffset;		
+	}
+	return nb_bytes;
 }
 
-OPJ_BOOL opj_seek_from_memory (OPJ_SIZE_T nb_bytes, DecodeData * p_user_data)
+OPJ_BOOL opj_seek_from_memory (OPJ_OFF_T nb_bytes, DecodeData * p_user_data)
 {
-	   DecodeData* srcData = static_cast<DecodeData*>(p_user_data);
-    if (!srcData || !srcData->src_data || srcData->src_size == 0) {
+    if (!p_user_data || !p_user_data->src_data || p_user_data->src_size == 0) {
         return OPJ_FALSE;
     }
-    // Offsets are signed and may indicate a negative position, which would
-    // be before the start of the file. Do not support this.
-    if (nb_bytes < 0) {
-        return OPJ_FALSE;
-    }
-    // FIXME: use std::make_unsigned<OPJ_OFF_T>::type once c++11 lib is OK'd.
-    uint64_t unsignedNbBytes = static_cast<uint64_t>(nb_bytes);
-    // Additionally, the offset may take us beyond the range of a size_t (e.g.
-    // 32-bit platforms). If so, just clamp at EOF.
-    if (unsignedNbBytes > std::numeric_limits<OPJ_SIZE_T>::max()) {
-        srcData->offset = srcData->src_size;
-    } else {
-        OPJ_SIZE_T checkedNbBytes = static_cast<OPJ_SIZE_T>(nb_bytes);
-        // Otherwise, mimic fseek() semantics to always succeed, even past EOF,
-        // again clamping at EOF.
-        srcData->offset = std::min(checkedNbBytes, srcData->src_size);
-    }
+    
+	// backwards?
+	if(nb_bytes < 0)
+		return OPJ_FALSE;
+
+	p_user_data->offset = std::min((OPJ_SIZE_T) nb_bytes, p_user_data->src_size);	
     return OPJ_TRUE;
 }
 
@@ -107,7 +98,7 @@ opj_stream_t* OPJ_CALLCONV opj_stream_create_memory_stream(DecodeData* p_mem,OPJ
 	opj_stream_set_user_data(l_stream, p_mem, NULL);
 	opj_stream_set_user_data_length(l_stream, p_mem->src_size);
 	opj_stream_set_read_function(l_stream,(opj_stream_read_fn) opj_read_from_memory);
-	opj_stream_set_write_function(l_stream, (opj_stream_write_fn) opj_write_from_memory);
+	opj_stream_set_write_function(l_stream, (opj_stream_write_fn) opj_write_to_memory);
 	opj_stream_set_skip_function(l_stream, (opj_stream_skip_fn) opj_skip_from_memory);
 	opj_stream_set_seek_function(l_stream, (opj_stream_seek_fn) opj_seek_from_memory);
 	return l_stream;
