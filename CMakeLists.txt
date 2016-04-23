@@ -78,10 +78,17 @@ set_property(TARGET fmjpeg2k APPEND PROPERTY
   COMPATIBLE_INTERFACE_STRING fmjpeg2k_MAJOR_VERSION
 )
 
+install(TARGETS dcmdjp2k EXPORT fmjpeg2kTargets
+  RUNTIME DESTINATION bin
+)
+
+install(TARGETS dcmcjp2k EXPORT fmjpeg2kTargets
+  RUNTIME DESTINATION bin
+)
+
 install(TARGETS fmjpeg2k EXPORT fmjpeg2kTargets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
-  RUNTIME DESTINATION bin
   INCLUDES DESTINATION include
 )
 
