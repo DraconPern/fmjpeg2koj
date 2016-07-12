@@ -4,7 +4,7 @@
 *
 *  Author:  Ing-Long Eric Kuo
 *
-*  Purpose: codec classes for JPEG-LS encoders.
+*  Purpose: codec classes for JPEG 2000 encoders.
 *
 */
 
@@ -87,7 +87,7 @@ OFBool DJPEG2KEncoderBase::canChangeCoding(
 	const E_TransferSyntax oldRepType,
 	const E_TransferSyntax newRepType) const
 {
-	// this codec only handles conversion from uncompressed to JPEG-LS.
+	// this codec only handles conversion from uncompressed to JPEG 2000.
 	DcmXfer oldRep(oldRepType);
 	return (oldRep.isNotEncapsulated() && (newRepType == supportedTransferSyntax()));
 }
@@ -692,7 +692,7 @@ OFCondition DJPEG2KEncoderBase::RenderedEncode(
 	// don't convert YCbCr (Full and Full 4:2:2) color images to RGB
 	flags |= CIF_KeepYCbCrColorModel;
 	// Don't optimize memory usage, but keep using the same bitsAllocated.
-	// Without this, the DICOM and the JPEG-LS value for bitsAllocated could
+	// Without this, the DICOM and the JPEG-2000 value for bitsAllocated could
 	// differ and the decoder would error out.
 	flags |= CIF_UseAbsolutePixelRange;
 

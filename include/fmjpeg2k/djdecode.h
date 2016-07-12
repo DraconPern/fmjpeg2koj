@@ -25,7 +25,7 @@
 class DJPEG2KCodecParameter;
 class DJPEG2KDecoder;
 
-/** singleton class that registers decoders for all supported JPEG-LS processes.
+/** singleton class that registers decoders for all supported JPEG 2000 processes.
  */
 class FMJPEG2K_EXPORT FMJPEG2KDecoderRegistration
 {

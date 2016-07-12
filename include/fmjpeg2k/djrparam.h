@@ -11,7 +11,7 @@
  *
  *  Author:  Ing-Long Eric Kuo
  *
- *  Purpose: representation parameters for JPEG-LS
+ *  Purpose: representation parameters for JPEG 2000
  *
  */
 
@@ -22,14 +22,14 @@
 #include "dcmtk/dcmdata/dcpixel.h" /* for class DcmRepresentationParameter */
 #include "dldefine.h"
 
-/** representation parameter for JPEG-LS
+/** representation parameter for JPEG 2000
  */
 class FMJPEG2K_EXPORT FMJPEG2KRepresentationParameter: public DcmRepresentationParameter
 {
 public:
 
   /** constructor
-   *  @param nearlosslessDeviation used as parameter NEAR in JPEG-LS nearlossless-encoding process
+   *  @param nearlosslessDeviation used as parameter NEAR in JPEG 2000 nearlossless-encoding process
    *  @param losslessProcess true if lossless process is requested
    */
   FMJPEG2KRepresentationParameter(
