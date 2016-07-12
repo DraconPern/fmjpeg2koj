@@ -15,8 +15,8 @@ install:
 # dcmtk & zlib
   - cd %DEVSPACE%
   - ps: |
-      Invoke-WebRequest http://draconpern-buildcache.s3.amazonaws.com/dcmtk.7z -Outfile "dcmtk.7z"
-  - 7z x -y dcmtk.7z
+      Invoke-WebRequest http://draconpern-buildcache.s3.amazonaws.com/dcmtk-win.7z -Outfile "dcmtk-win.7z"
+  - 7z x -y dcmtk-win.7z
 
 # openjpeg
   - cd %DEVSPACE%
@@ -35,12 +35,12 @@ build_script:
 
 after_build:
   - cd %DEVSPACE%
-  - 7z a fmjpeg2koj.7z fmjpeg2koj\%TYPE% openjpeg\%TYPE%
-  - mv fmjpeg2koj.7z %APPVEYOR_BUILD_FOLDER%
+  - 7z a fmjpeg2koj-win.7z fmjpeg2koj\%TYPE% openjpeg\%TYPE%
+  - mv fmjpeg2koj-win.7z %APPVEYOR_BUILD_FOLDER%
 
 artifacts:
-  - path: fmjpeg2koj.7z
-    name: fmjpeg2koj
+  - path: fmjpeg2koj-win.7z
+    name: fmjpeg2koj-win
  
 deploy:
   provider: S3
@@ -51,4 +51,5 @@ deploy:
   bucket: draconpern-buildcache
   set_public: true
   folder: 
-  artifact: fmjpeg2koj    
+  artifact: fmjpeg2koj-win
+ 
