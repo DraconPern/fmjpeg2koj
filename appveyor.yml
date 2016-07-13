@@ -1,9 +1,4 @@
-branches:
-  only:
-    - master
-
-platform:
-  - x86
+image: Visual Studio 2013
 
 configuration:
   - Release
