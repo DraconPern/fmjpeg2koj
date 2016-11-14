@@ -47,15 +47,15 @@ if(WIN32)
 endif()
 
 ADD_EXECUTABLE(dcmcjp2k dcmcjp2k.cc)
-TARGET_LINK_LIBRARIES(dcmcjp2k 			
-	${DCMTK_LIBRARIES}		
+TARGET_LINK_LIBRARIES(dcmcjp2k
+	${DCMTK_LIBRARIES}
 	openjp2
 	fmjpeg2k
 	)
-	
+
 ADD_EXECUTABLE(dcmdjp2k dcmdjp2k.cc)
-TARGET_LINK_LIBRARIES(dcmdjp2k 			
-	${DCMTK_LIBRARIES}		
+TARGET_LINK_LIBRARIES(dcmdjp2k
+	${DCMTK_LIBRARIES}
 	openjp2
 	fmjpeg2k
 	)
@@ -64,11 +64,11 @@ TARGET_LINK_LIBRARIES(dcmdjp2k
 add_library(fmjpeg2k ${fmjpeg2k_SRCS})
 set(fmjpeg2k_LIBRARY_NAME fmjpeg2k)
 TARGET_LINK_LIBRARIES(fmjpeg2k
-	${DCMTK_LIBRARIES}	
+	${DCMTK_LIBRARIES}
 	openjp2
 	)
-	
-include(GenerateExportHeader)	
+
+include(GenerateExportHeader)
 generate_export_header(fmjpeg2k)
 set_property(TARGET fmjpeg2k PROPERTY VERSION ${fmjpeg2k_VERSION})
 set_property(TARGET fmjpeg2k PROPERTY SOVERSION 1)
@@ -89,7 +89,6 @@ install(TARGETS dcmcjp2k EXPORT fmjpeg2kTargets
 install(TARGETS fmjpeg2k EXPORT fmjpeg2kTargets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
-  INCLUDES DESTINATION include
 )
 
 install(
@@ -109,7 +108,7 @@ write_basic_package_version_file(
 )
 
 export(TARGETS fmjpeg2k
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2kExports.cmake" 
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2kExports.cmake"
 )
 configure_file( ${CMAKE_SOURCE_DIR}/cmake/fmjpeg2kConfig.cmake.in
   ${CMAKE_CURRENT_BINARY_DIR}/fmjpeg2kConfig.cmake
