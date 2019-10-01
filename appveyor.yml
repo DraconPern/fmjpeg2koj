@@ -40,9 +40,9 @@ artifacts:
 deploy:
   provider: S3
   access_key_id:
-    secure: ocfx3RWVSyFaLRBBJXRLrvwqFGoftzrWzqUWrx20/bc=
+    secure: NoQGGjuA1OWCnB7LiTCQDw19+jVRaveK8QbFY+FSVEg=
   secret_access_key:
-    secure: cVrRAHZDL4OZaPmgpH2RAa6yKD1ckjrMvtL/RozVMTTxiMWe5+3BKGrWv7RzNQLK
+    secure: quY6Ltwn2DiEWqh48ZIFIqx50TduHHKbcRrunpiEzcRZIIsUohb5Y5viJ/TkPzUj
   bucket: draconpern-buildcache
   set_public: true
   folder: 
