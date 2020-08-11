@@ -51,14 +51,14 @@ endif()
 ADD_EXECUTABLE(dcmcjp2k dcmcjp2k.cc)
 TARGET_LINK_LIBRARIES(dcmcjp2k
 	${DCMTK_LIBRARIES}
-	openjp2
+	${OPENJPEG_LIBRARIES}
 	fmjpeg2k
 	)
 
 ADD_EXECUTABLE(dcmdjp2k dcmdjp2k.cc)
 TARGET_LINK_LIBRARIES(dcmdjp2k
 	${DCMTK_LIBRARIES}
-	openjp2
+	${OPENJPEG_LIBRARIES}
 	fmjpeg2k
 	)
 
@@ -67,7 +67,7 @@ add_library(fmjpeg2k ${fmjpeg2k_SRCS})
 set(fmjpeg2k_LIBRARY_NAME fmjpeg2k)
 TARGET_LINK_LIBRARIES(fmjpeg2k
 	${DCMTK_LIBRARIES}
-	openjp2
+	${OPENJPEG_LIBRARIES}
 	)
 
 include(GenerateExportHeader)

@@ -61,6 +61,28 @@ public:
     const DcmCodecParameter * cp,
     const DcmStack& objStack) const;
 
+  /** decompresses the given pixel sequence and
+   *  stores the result in the given uncompressedPixelData element.
+   *  @param fromRepParam current representation parameter of compressed data, may be NULL
+   *  @param pixSeq compressed pixel sequence
+   *  @param uncompressedPixelData uncompressed pixel data stored in this element
+   *  @param cp codec parameters for this codec
+   *  @param objStack stack pointing to the location of the pixel data
+   *    element in the current dataset.
+   *  @param removeOldRep boolean flag that should be set to false before this method call
+   *    and will be set to true if the codec modifies the DICOM dataset such
+   *    that the pixel data of the original representation may not be usable
+   *    anymore.
+   *  @return EC_Normal if successful, an error code otherwise.
+   */
+  virtual OFCondition decode(
+    const DcmRepresentationParameter * fromRepParam,
+    DcmPixelSequence * pixSeq,
+    DcmPolymorphOBOW& uncompressedPixelData,
+    const DcmCodecParameter * cp,
+    const DcmStack& objStack,
+    OFBool& removeOldRep) const;
+
   /** decompresses a single frame from the given pixel sequence and
    *  stores the result in the given buffer.
    *  @param fromParam representation parameter of current compressed
@@ -119,6 +141,33 @@ public:
     const DcmCodecParameter *cp,
     DcmStack & objStack) const;
 
+  /** compresses the given uncompressed DICOM image and stores
+   *  the result in the given pixSeq element.
+   *  @param pixelData pointer to the uncompressed image data in OW format
+   *    and local byte order
+   *  @param length of the pixel data field in bytes
+   *  @param toRepParam representation parameter describing the desired
+   *    compressed representation (e.g. JPEG quality)
+   *  @param pixSeq compressed pixel sequence (pointer to new DcmPixelSequence object
+   *    allocated on heap) returned in this parameter upon success.
+   *  @param cp codec parameters for this codec
+   *  @param objStack stack pointing to the location of the pixel data
+   *    element in the current dataset.
+   *  @param removeOldRep boolean flag that should be set to false before this method call
+   *    and will be set to true if the codec modifies the DICOM dataset such
+   *    that the pixel data of the original representation may not be usable
+   *    anymore.
+   *  @return EC_Normal if successful, an error code otherwise.
+   */
+  virtual OFCondition encode(
+    const Uint16 * pixelData,
+    const Uint32 length,
+    const DcmRepresentationParameter * toRepParam,
+    DcmPixelSequence * & pixSeq,
+    const DcmCodecParameter *cp,
+    DcmStack & objStack,
+    OFBool& removeOldRep) const;
+  
   /** transcodes (re-compresses) the given compressed DICOM image and stores
    *  the result in the given toPixSeq element.
    *  @param fromRepType current transfer syntax of the compressed image
@@ -142,6 +191,34 @@ public:
     const DcmCodecParameter * cp,
     DcmStack & objStack) const;
 
+  /** transcodes (re-compresses) the given compressed DICOM image and stores
+   *  the result in the given toPixSeq element.
+   *  @param fromRepType current transfer syntax of the compressed image
+   *  @param fromRepParam current representation parameter of compressed data, may be NULL
+   *  @param fromPixSeq compressed pixel sequence
+   *  @param toRepParam representation parameter describing the desired
+   *    new compressed representation (e.g. JPEG quality)
+   *  @param toPixSeq compressed pixel sequence (pointer to new DcmPixelSequence object
+   *    allocated on heap) returned in this parameter upon success.
+   *  @param cp codec parameters for this codec
+   *  @param objStack stack pointing to the location of the pixel data
+   *    element in the current dataset.
+   *  @param removeOldRep boolean flag that should be set to false before this method call
+   *    and will be set to true if the codec modifies the DICOM dataset such
+   *    that the pixel data of the original representation may not be usable
+   *    anymore.
+   *  @return EC_Normal if successful, an error code otherwise.
+   */
+  virtual OFCondition encode(
+    const E_TransferSyntax fromRepType,
+    const DcmRepresentationParameter * fromRepParam,
+    DcmPixelSequence * fromPixSeq,
+    const DcmRepresentationParameter * toRepParam,
+    DcmPixelSequence * & toPixSeq,
+    const DcmCodecParameter * cp,
+    DcmStack & objStack,
+    OFBool& removeOldRep) const;
+  
   /** checks if this codec is able to convert from the
    *  given current transfer syntax to the given new
    *  transfer syntax
