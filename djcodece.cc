@@ -119,6 +119,18 @@ OFCondition DJPEG2KEncoderBase::decode(
 }
 
 
+OFCondition DJPEG2KEncoderBase::decode(
+    const DcmRepresentationParameter * fromRepParam,
+    DcmPixelSequence * pixSeq,
+    DcmPolymorphOBOW& uncompressedPixelData,
+    const DcmCodecParameter * cp,
+    const DcmStack& objStack,
+    OFBool& removeOldRep) const
+{
+  return EC_IllegalCall;
+}
+
+
 OFCondition DJPEG2KEncoderBase::decodeFrame(
 	const DcmRepresentationParameter * /* fromParam */ ,
 	DcmPixelSequence * /* fromPixSeq */ ,
@@ -147,6 +159,21 @@ OFCondition DJPEG2KEncoderBase::encode(
 	// we don't support re-coding for now.
 	return EC_IllegalCall;
 }
+
+
+OFCondition DJPEG2KEncoderBase::encode(
+    const E_TransferSyntax fromRepType,
+    const DcmRepresentationParameter * fromRepParam,
+    DcmPixelSequence * fromPixSeq,
+    const DcmRepresentationParameter * toRepParam,
+    DcmPixelSequence * & toPixSeq,
+    const DcmCodecParameter * cp,
+    DcmStack & objStack,
+	OFBool& removeOldRep) const
+{
+  return EC_IllegalCall;
+}
+
 
 OFCondition DJPEG2KEncoderBase::encode(
 	const Uint16 * pixelData,
@@ -225,6 +252,20 @@ OFCondition DJPEG2KEncoderBase::encode(
 	}
 
 	return result;
+}
+
+
+OFCondition DJPEG2KEncoderBase::encode(
+    const Uint16 * pixelData,
+    const Uint32 length,
+    const DcmRepresentationParameter * toRepParam,
+    DcmPixelSequence * & pixSeq,
+    const DcmCodecParameter *cp,
+    DcmStack & objStack,
+    OFBool& removeOldRep) const
+{
+	// removeOldRep is left as it is, pixel data in original DICOM dataset is not modified
+	return encode(pixelData, length, toRepParam, pixSeq, cp, objStack);
 }
 
 
