@@ -25,7 +25,7 @@ cd ../..
 cd $DEVSPACE
 mkdir build-$TYPE
 cd build-$TYPE
-cmake .. -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/$TYPE
+cmake .. -DOpenJPEG_ROOT=$DEVSPACE/openjpeg/$TYPE -DDCMTK_ROOT=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/$TYPE
 make -j8 install
 cd ../..
 

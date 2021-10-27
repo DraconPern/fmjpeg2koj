@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.4)
+cmake_minimum_required(VERSION 3.12)
 
 project(fmjpeg2k)
 
@@ -9,8 +9,10 @@ set(fmjpeg2k_VERSION "${fmjpeg2k_VERSION_MAJOR}.${fmjpeg2k_VERSION_MINOR}.${fmjp
 
 option(BUILD_SHARED_LIBS "Build fmjpeg2k shared library and link executables against it." ON)
 
-find_package(DCMTK REQUIRED CONFIG HINTS ${DCMTK_DIR})
-find_package(OpenJPEG REQUIRED CONFIG HINTS ${OPENJPEG})
+set (CMAKE_CXX_STANDARD 11)
+
+find_package(DCMTK)
+find_package(OpenJPEG)
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${DCMTK_INCLUDE_DIRS} ${OPENJPEG_INCLUDE_DIRS})
 LINK_DIRECTORIES(${FMJPEG2K}/lib)

@@ -35,4 +35,4 @@ endif()
 
 # Backward compatible part:
 set(fmjpeg2k_FOUND       TRUE)
-message(STATUS "FMJPEG2K_INCLUDE_DIRS ${FMJPEG2K_INCLUDE_DIRS} FMJPEG2K_LIBRARIES ${FMJPEG2K_LIBRARIES}")
+message(STATUS "Found fmjpeg2k: ${FMJPEG2K_LIBRARIES}")
