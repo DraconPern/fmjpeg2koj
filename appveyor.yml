@@ -3,7 +3,7 @@ image: Visual Studio 2017
 configuration:
   - Release
 
-install:
+before_build:
   - SET TYPE=%CONFIGURATION%
   - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%\..
   - SET GENERATOR="Visual Studio 15 2017"
@@ -23,7 +23,6 @@ install:
   - cmake .. -G %GENERATOR% -DBUILD_THIRDPARTY=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_C_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DCMAKE_INSTALL_PREFIX=%DEVSPACE%\openjpeg\%TYPE%
   - msbuild /P:Configuration=%TYPE% INSTALL.vcxproj
  
-before_build:
   - cd %APPVEYOR_BUILD_FOLDER% && mkdir build-%TYPE% && cd build-%TYPE%
   - cmake .. -G %GENERATOR% -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DOPENJPEG=%DEVSPACE%\openjpeg\%TYPE% -DDCMTK_DIR=%DEVSPACE%\dcmtk\%TYPE% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%\%TYPE%
 
