@@ -1,4 +1,4 @@
-image: Visual Studio 2013
+image: Visual Studio 2017
 
 configuration:
   - Release
@@ -6,23 +6,26 @@ configuration:
 install:
   - SET TYPE=%CONFIGURATION%
   - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%\..
+  - SET GENERATOR="Visual Studio 15 2017"
   
 # dcmtk & zlib
   - cd %DEVSPACE%
-  - ps: |
-      Invoke-WebRequest http://draconpern-buildcache.s3.amazonaws.com/dcmtk-win.7z -Outfile "dcmtk-win.7z"
-  - 7z x -y dcmtk-win.7z
+  - git clone --branch=DCMTK-3.6.5 --single-branch --depth 1 https://github.com/DCMTK/dcmtk.git
+  - cd dcmtk && mkdir build-%TYPE% && cd build-%TYPE%
+  - cmake .. -G %GENERATOR% -DDCMTK_ENABLE_CXX11=ON -DDCMTK_ENABLE_STL=ON -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DDCMTK_WITH_ZLIB=1 -DWITH_ZLIBINC=%DEVSPACE%\zlib\%TYPE% -DDCMTK_WITH_ICONV=1 -DWITH_LIBICONVINC=%DEVSPACE%\libiconv\%TYPE% -DCMAKE_INSTALL_PREFIX=%DEVSPACE%\dcmtk\%TYPE%
+  - powershell "gci config\include\dcmtk\config osconfig.h | ForEach { (Get-Content $_.FullName | ForEach {$_ -replace '/\* #undef HAVE_SSL_CTX_GET0_PARAM \*/', '#define HAVE_SSL_CTX_GET0_PARAM'}) | Set-Content $_.FullName }"
+  - msbuild /maxcpucount:8 /P:Configuration=%TYPE% INSTALL.vcxproj
 
 # openjpeg
   - cd %DEVSPACE%
-  - git clone --branch=master https://github.com/uclouvain/openjpeg.git
-  - cd openjpeg && git checkout openjpeg-2.1 && mkdir build-%TYPE% && cd build-%TYPE%
-  - cmake .. -G "Visual Studio 11" -DBUILD_THIRDPARTY=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_C_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DCMAKE_INSTALL_PREFIX=%DEVSPACE%\openjpeg\%TYPE%
+  - git clone --branch=v2.4.0 --single-branch --depth 1 https://github.com/uclouvain/openjpeg.git
+  - cd openjpeg && mkdir build-%TYPE% && cd build-%TYPE%
+  - cmake .. -G %GENERATOR% -DBUILD_THIRDPARTY=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_C_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DCMAKE_INSTALL_PREFIX=%DEVSPACE%\openjpeg\%TYPE%
   - msbuild /P:Configuration=%TYPE% INSTALL.vcxproj
  
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER% && mkdir build-%TYPE% && cd build-%TYPE%
-  - cmake .. -G "Visual Studio 11" -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DOPENJPEG=%DEVSPACE%\openjpeg\%TYPE% -DDCMTK_DIR=%DEVSPACE%\dcmtk\%TYPE% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%\%TYPE%
+  - cmake .. -G %GENERATOR% -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_FLAGS_RELEASE="/MT /O2 /D NDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="/D_DEBUG /MTd /Od" -DOPENJPEG=%DEVSPACE%\openjpeg\%TYPE% -DDCMTK_DIR=%DEVSPACE%\dcmtk\%TYPE% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%\%TYPE%
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%\build-%TYPE%
