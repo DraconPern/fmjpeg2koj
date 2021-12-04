@@ -17,7 +17,7 @@ before_build:
   - git clone --branch=v2.4.0 --single-branch --depth 1 https://github.com/uclouvain/openjpeg.git
 
 build_script:
-  - cd %DEVSPACE%
+  - cd %APPVEYOR_BUILD_FOLDER%
   - build.bat
 
 after_build:
