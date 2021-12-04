@@ -9,7 +9,6 @@ mkdir build-%TYPE%
 cd build-%TYPE%
 cmake .. -G "Visual Studio 15 2017" -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS=1 -DCMAKE_INSTALL_PREFIX=%DEVSPACE%\dcmtk\%TYPE%
 msbuild /P:Configuration=%TYPE% INSTALL.vcxproj 
-cd ..\..
 
 cd %DEVSPACE%\openjpeg
 mkdir build-%TYPE%

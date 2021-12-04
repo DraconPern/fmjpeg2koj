@@ -3,9 +3,9 @@ image: Visual Studio 2017
 configuration:
   - Release
 
-before_build:
+install:
   - SET TYPE=%CONFIGURATION%
-  - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%\..
+  - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%
   - SET GENERATOR="Visual Studio 15 2017"
   
 # dcmtk & zlib
@@ -17,7 +17,7 @@ before_build:
   - git clone --branch=v2.4.0 --single-branch --depth 1 https://github.com/uclouvain/openjpeg.git
 
 build_script:
-  - cd %APPVEYOR_BUILD_FOLDER%
+  - cd %DEVSPACE%
   - build.bat
 
 after_build:
