@@ -3,25 +3,12 @@ image: Visual Studio 2017
 configuration:
   - Release
 
-install:
-  - SET TYPE=%CONFIGURATION%
-  - SET DEVSPACE=%APPVEYOR_BUILD_FOLDER%
-  - SET GENERATOR="Visual Studio 15 2017"
-  
-# dcmtk & zlib
-  - cd %DEVSPACE%
-  - git clone --branch=DCMTK-3.6.5 --single-branch --depth 1 https://github.com/DCMTK/dcmtk.git
-
-# openjpeg
-  - cd %DEVSPACE%
-  - git clone --branch=v2.4.0 --single-branch --depth 1 https://github.com/uclouvain/openjpeg.git
-
 build_script:
-  - cd %DEVSPACE%
+  - cd %APPVEYOR_BUILD_FOLDER%
   - build.bat
 
 after_build:
-  - cd %DEVSPACE%
+  - cd %APPVEYOR_BUILD_FOLDER%
   - 7z a fmjpeg2koj-win.7z %TYPE%
 
 artifacts:

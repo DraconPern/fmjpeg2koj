@@ -8,40 +8,6 @@ os:
 # use containers
 sudo: false
 
-env:
-  - TYPE=Release DEVSPACE=$TRAVIS_BUILD_DIR/..
-
-install:
-  #dcmtk  
-  - cd $DEVSPACE
-  - wget http://draconpern-buildcache.s3.amazonaws.com/dcmtk-$TRAVIS_OS_NAME.zip
-  - unzip dcmtk-$TRAVIS_OS_NAME.zip
-
-  #openjpeg
-  - cd $DEVSPACE
-  - wget https://github.com/uclouvain/openjpeg/archive/version.2.1.tar.gz
-  - tar -xzf version.2.1.tar.gz
-  - mv openjpeg-version.2.1 openjpeg
-  - cd openjpeg && mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DBUILD_SHARED_LIBS=OFF -DBUILD_THIRDPARTY=ON -DCMAKE_INSTALL_PREFIX=$DEVSPACE/openjpeg/$TYPE
-  - make -j8 install
-
 script:
-  - cd $TRAVIS_BUILD_DIR && mkdir -p build-$TYPE && cd build-$TYPE
-  - cmake .. -DBUILD_SHARED_LIBS=OFF -DOPENJPEG=$DEVSPACE/openjpeg/$TYPE -DDCMTK_DIR=$DEVSPACE/dcmtk/$TYPE -DCMAKE_INSTALL_PREFIX=$DEVSPACE/fmjpeg2koj/$TYPE 
-  - make -j8 install
-before_deploy:
-- cd $DEVSPACE
-- zip -r latest.zip fmjpeg2koj/$TYPE openjpeg/$TYPE
-- mkdir -p dpl_cd_upload
-- mv latest.zip $DEVSPACE/dpl_cd_upload/fmjpeg2koj-$TRAVIS_OS_NAME.zip
-deploy:
-  provider: s3
-  access_key_id:
-    secure: MpP+SfeYZ6+bBYilfO/hZPmr8jJZlv1HT2v0FKgRs/OSK6EdSCe15A5Ojqvqil76jFAS++WaFGkDa3jZQJyssk37AT10mdqDOgke1gqwcMruj98CtMJ/lHEDjy6MqbLW1tHCxZxyZCHBD9NRpgbKFFAfv6CAfyF3xUvsIyeY42eQ2/mj/lweTYMciy7JVEdqhcZ2p/H2yCOxDwBpYg6FpbgevQfqOksf7zZNcqnJRAAmRmpxuVVU87bxfGJCxzIYhYZZMWYDf7OJyPeDmcSzhtP9NyPR2nv6hGPz0o37k14kq9YCPav5T4iohbiBR5vqJaBUU2op2FCAkEv2H7iEGbzrzXN3jLtg58luWR5FiGfzMVy5uYItZkrSPlMOyEy757Xa9RYZl8U2fOkjiS6mYzRztRFqvSvSBKMAapjJ6csnW/OpsnE/cnV+NgqJfsLj224teNqXtX5hzMIPHNz4miTLTdsyfdzoDI5Y6/kfkDfbvH2HgqJABH985P22WBCoeH/GtKnFhjwUbt/c+2bnTsyQztmv4VvlW01dvaO6xQHZGxnZTEppkIpNClKjS9rcl5jUVG0co3LjnNPbrOXWj/SjjArbw0SYB06ZUVzHhjlOCmcskg8lzS0ilsHgCv599uRNV8wXtWddSsRUpTJhYRE8TQDyuimJm4kEHq/AfOo=
-  secret_access_key:
-    secure:  DlJPGJnLA1JxZ/R/W6UDTnVetMrvVk4aPeZieHmbyWkxFy0Vi4YqEh99t0oyeblGXQPI2Zhej6w1BkoPJR+6WOpauYjE48f++RyukSwyIx4QIjxd/mreZA0GnLgwfGub4QAisSrDgeOy1t1m1Lr48rDhh9wsHQ7QZhbOLtyW+82EA8rKUa83TYl/XGtC0smIXPTrl0DNqLEz/MLwEmpAGRXKLqDQDOJ0d2bf3tbwFjuFV1kRr9AVewy2r6jZOnHxx0xrYQbHClk1f3X3CXL7unfmT4pFZUetFSUxw6JAM+s9ZuYgz2DQW0QBqmODq21w8bV2+RLrMnuBuKR0icvKnRlgR7KRLHlIel6f0F7n2rFvTQz2hwj1kWOnfIPD+d6bq1MMHV4wYCA30Xt3Ba2cB4TB12j10X/BL30Vh2xbivsu5e8X3T8GgqLLpZow8fUkH7fG+QE6PqMy43ljqEY4w6/1Gk3hkkdshXjaEiqcosNm8WdG550BNSDZuktSUsF25O1gBXbnKUSWzIeRp6DNjPG1KMCy0cITZ5Hp8LrusFvBs/a53FjMuuaynzQrBwVmkFyp8vtpXsPCwb6A7t9ZlmLgnck8cmUEuzh3yTvqUkeaNZOM3ZHBQ6LXw192UhyB21Ehhj0VzZq0x9oHetZ2niLX1uEHw1FcxpBZNi+c/Bk=
-  bucket: draconpern-buildcache
-  acl: public_read
-  skip_cleanup: true
-  local_dir: dpl_cd_upload 
+  - cd $TRAVIS_BUILD_DIR
+  - build-osx.sh

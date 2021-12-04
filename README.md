@@ -1,5 +1,5 @@
 # fmjpeg2koj
-Windows [![Build status](https://ci.appveyor.com/api/projects/status/h3hv3qayr4obik87/branch/master?svg=true)](https://ci.appveyor.com/project/DraconPern/fmjpeg2koj/branch/master) OS X [![Build Status](https://travis-ci.com/DraconPern/fmjpeg2koj.svg?branch=master)](https://travis-ci.com/DraconPern/fmjpeg2koj)
+Windows [![Build status](https://ci.appveyor.com/api/projects/status/mk6procjyjwbed2d?svg=true)](https://ci.appveyor.com/project/DraconPern/fmjpeg2koj) OS X [![Build Status](https://app.travis-ci.com/DraconPern/fmjpeg2koj.svg?branch=master)](https://app.travis-ci.com/DraconPern/fmjpeg2koj)
 
 JPEG2000 codec for DCMTK based on openjpeg
 
@@ -17,7 +17,7 @@ Source https://github.com/DraconPern/fmjpeg2koj
 Ing-Long Eric Kuo <draconpern@hotmail.com>
 
 ## License
-Copyright 2015-2017 Ing-Long Eric Kuo
+Copyright 2015-2021 Ing-Long Eric Kuo
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
