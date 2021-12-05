@@ -9,4 +9,5 @@ os:
 sudo: false
 
 script:
-  - build-osx.sh
+  - cd $TRAVIS_BUILD_DIR
+  - .\build-osx.sh
