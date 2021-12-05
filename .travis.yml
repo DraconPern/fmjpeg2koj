@@ -1,13 +1,12 @@
 language: cpp
 compiler:
-    - gcc
+  - gcc
 
-os:    
-    - osx
+os:
+  - osx
 
 # use containers
 sudo: false
 
 script:
-  - cd $TRAVIS_BUILD_DIR
   - build-osx.sh
