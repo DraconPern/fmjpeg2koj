@@ -22,4 +22,4 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration
-      run: build.sh ${{env.BUILD_TYPE}}
+      run: ./build.sh ${{env.BUILD_TYPE}}
