@@ -752,11 +752,11 @@ OFCondition DJPEG2KDecoderBase::createPlanarConfiguration1Byte(
   if (buf)
   {
     memcpy(buf, imageFrame, (size_t)(3*numPixels));
-    register Uint8 *s = buf;                        // source
-    register Uint8 *r = imageFrame;                 // red plane
-    register Uint8 *g = imageFrame + numPixels;     // green plane
-    register Uint8 *b = imageFrame + (2*numPixels); // blue plane
-    for (register unsigned long i=numPixels; i; i--)
+    Uint8 *s = buf;                        // source
+    Uint8 *r = imageFrame;                 // red plane
+    Uint8 *g = imageFrame + numPixels;     // green plane
+    Uint8 *b = imageFrame + (2*numPixels); // blue plane
+    for (unsigned long i=numPixels; i; i--)
     {
       *r++ = *s++;
       *g++ = *s++;
@@ -782,11 +782,11 @@ OFCondition DJPEG2KDecoderBase::createPlanarConfiguration1Word(
   if (buf)
   {
     memcpy(buf, imageFrame, (size_t)(3*numPixels*sizeof(Uint16)));
-    register Uint16 *s = buf;                        // source
-    register Uint16 *r = imageFrame;                 // red plane
-    register Uint16 *g = imageFrame + numPixels;     // green plane
-    register Uint16 *b = imageFrame + (2*numPixels); // blue plane
-    for (register unsigned long i=numPixels; i; i--)
+    Uint16 *s = buf;                        // source
+    Uint16 *r = imageFrame;                 // red plane
+    Uint16 *g = imageFrame + numPixels;     // green plane
+    Uint16 *b = imageFrame + (2*numPixels); // blue plane
+    for (unsigned long i=numPixels; i; i--)
     {
       *r++ = *s++;
       *g++ = *s++;
@@ -811,11 +811,11 @@ OFCondition DJPEG2KDecoderBase::createPlanarConfiguration0Byte(
   if (buf)
   {
     memcpy(buf, imageFrame, (size_t)(3*numPixels));
-    register Uint8 *t = imageFrame;          // target
-    register Uint8 *r = buf;                 // red plane
-    register Uint8 *g = buf + numPixels;     // green plane
-    register Uint8 *b = buf + (2*numPixels); // blue plane
-    for (register unsigned long i=numPixels; i; i--)
+    Uint8 *t = imageFrame;          // target
+    Uint8 *r = buf;                 // red plane
+    Uint8 *g = buf + numPixels;     // green plane
+    Uint8 *b = buf + (2*numPixels); // blue plane
+    for (unsigned long i=numPixels; i; i--)
     {
       *t++ = *r++;
       *t++ = *g++;
@@ -841,11 +841,11 @@ OFCondition DJPEG2KDecoderBase::createPlanarConfiguration0Word(
   if (buf)
   {
     memcpy(buf, imageFrame, (size_t)(3*numPixels*sizeof(Uint16)));
-    register Uint16 *t = imageFrame;          // target
-    register Uint16 *r = buf;                 // red plane
-    register Uint16 *g = buf + numPixels;     // green plane
-    register Uint16 *b = buf + (2*numPixels); // blue plane
-    for (register unsigned long i=numPixels; i; i--)
+    Uint16 *t = imageFrame;          // target
+    Uint16 *r = buf;                 // red plane
+    Uint16 *g = buf + numPixels;     // green plane
+    Uint16 *b = buf + (2*numPixels); // blue plane
+    for (unsigned long i=numPixels; i; i--)
     {
       *t++ = *r++;
       *t++ = *g++;
@@ -868,9 +868,9 @@ OFCondition copyUint32ToUint8(
   unsigned long numPixels = columns * rows;
   if (numPixels == 0) return EC_IllegalCall;
   
-  register Uint8 *t = imageFrame;          // target
-  register OPJ_INT32 *g = image->comps[0].data;   // grey plane  
-  for (register unsigned long i=numPixels; i; i--)
+  Uint8 *t = imageFrame;          // target
+  OPJ_INT32 *g = image->comps[0].data;   // grey plane  
+  for (unsigned long i=numPixels; i; i--)
   {
 	*t++ = *g++;
   }
@@ -889,9 +889,9 @@ OFCondition copyUint32ToUint16(
   unsigned long numPixels = columns * rows;
   if (numPixels == 0) return EC_IllegalCall;
   
-  register Uint16 *t = imageFrame;          // target
-  register OPJ_INT32 *g = image->comps[0].data;   // grey plane  
-  for (register unsigned long i=numPixels; i; i--)
+  Uint16 *t = imageFrame;          // target
+  OPJ_INT32 *g = image->comps[0].data;   // grey plane  
+  for (unsigned long i=numPixels; i; i--)
   {
 	*t++ = *g++;
   }
@@ -910,11 +910,11 @@ OFCondition copyRGBUint8ToRGBUint8(
   unsigned long numPixels = columns * rows;
   if (numPixels == 0) return EC_IllegalCall;
       
-  register Uint8 *t = imageFrame;          // target
-  register OPJ_INT32 *r = image->comps[0].data; // red plane
-  register OPJ_INT32 *g = image->comps[1].data; // green plane
-  register OPJ_INT32 *b = image->comps[2].data; // blue plane
-  for (register unsigned long i=numPixels; i; i--)
+  Uint8 *t = imageFrame;          // target
+  OPJ_INT32 *r = image->comps[0].data; // red plane
+  OPJ_INT32 *g = image->comps[1].data; // green plane
+  OPJ_INT32 *b = image->comps[2].data; // blue plane
+  for (unsigned long i=numPixels; i; i--)
   {
     *t++ = *r++;
     *t++ = *g++;
@@ -935,11 +935,11 @@ OFCondition copyRGBUint8ToRGBUint8Planar(
   unsigned long numPixels = columns * rows;
   if (numPixels == 0) return EC_IllegalCall;
       
-  register Uint8 *t = imageFrame;          // target
-  for(register unsigned long j=0; j<3; j++)
+  Uint8 *t = imageFrame;          // target
+  for(unsigned long j=0; j<3; j++)
   {
-	register OPJ_INT32 *r = image->comps[j].data; // color plane  
-	for (register unsigned long i=numPixels; i; i--)
+	OPJ_INT32 *r = image->comps[j].data; // color plane  
+	for (unsigned long i=numPixels; i; i--)
 	{
 	  *t++ = *r++;    
 	}
