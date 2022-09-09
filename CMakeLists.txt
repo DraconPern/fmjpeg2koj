@@ -9,6 +9,8 @@ set(fmjpeg2k_VERSION "${fmjpeg2k_VERSION_MAJOR}.${fmjpeg2k_VERSION_MINOR}.${fmjp
 
 option(BUILD_SHARED_LIBS "Build fmjpeg2k shared library and link executables against it." ON)
 
+set (CMAKE_CXX_STANDARD 11)
+
 if(NOT BUILD_SHARED_LIBS)
 add_definitions(-DOPJ_STATIC)
 endif()
