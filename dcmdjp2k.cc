@@ -21,9 +21,9 @@
 
 #include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
-#define INCLUDE_CSTDLIB
-#define INCLUDE_CSTDIO
-#define INCLUDE_CSTRING
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 #include "dcmtk/ofstd/ofstdinc.h"
 
 #ifdef HAVE_GUSI_H

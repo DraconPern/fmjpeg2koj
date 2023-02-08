@@ -32,7 +32,7 @@
 #include "dcmtk/ofstd/offile.h"      /* for class OFFile */
 #include "dcmtk/ofstd/ofbmanip.h"
 
-#define INCLUDE_CMATH
+#include <cmath>
 #include "dcmtk/ofstd/ofstdinc.h"
 
 // dcmdata includes
