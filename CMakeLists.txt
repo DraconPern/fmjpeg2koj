@@ -18,8 +18,10 @@ endif()
 find_package(DCMTK)
 foreach(LIB ${DCMTK_LIBRARIES})
   FIND_LIBRARY(FOUND_LIB_${LIB} ${LIB})
+  # link library using fully qualified path
   LIST(APPEND FQP_DCMTK_LIBRARIES ${FOUND_LIB_${LIB}})
 endforeach(LIB)
+
 find_package(OpenJPEG)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${DCMTK_INCLUDE_DIRS} ${OPENJPEG_INCLUDE_DIRS})
 LINK_DIRECTORIES(${FMJPEG2K}/lib)
