@@ -95,6 +95,7 @@ install(TARGETS dcmcjp2k EXPORT fmjpeg2kTargets
 install(TARGETS fmjpeg2k EXPORT fmjpeg2kTargets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
 )
 
 install(
