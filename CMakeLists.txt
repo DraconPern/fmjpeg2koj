@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 
 project(fmjpeg2k)
 
+include(GNUInstallDirs)
+
 set (fmjpeg2k_VERSION_MAJOR 1)
 set (fmjpeg2k_VERSION_MINOR 0)
 set (fmjpeg2k_VERSION_BUILD 3)
@@ -19,7 +21,7 @@ find_package(DCMTK)
 find_package(OpenJPEG)
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${DCMTK_INCLUDE_DIRS} ${OPENJPEG_INCLUDE_DIRS})
-LINK_DIRECTORIES(${FMJPEG2K}/lib)
+LINK_DIRECTORIES(${FMJPEG2K}/${CMAKE_INSTALL_LIBDIR})
 
 add_definitions(-Dfmjpeg2k_EXPORTS)
 
@@ -85,17 +87,17 @@ set_property(TARGET fmjpeg2k APPEND PROPERTY
 )
 
 install(TARGETS dcmdjp2k EXPORT fmjpeg2kTargets
-  RUNTIME DESTINATION bin
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(TARGETS dcmcjp2k EXPORT fmjpeg2kTargets
-  RUNTIME DESTINATION bin
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(TARGETS fmjpeg2k EXPORT fmjpeg2kTargets
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib
-  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(
@@ -126,7 +128,7 @@ configure_file( ${CMAKE_SOURCE_DIR}/cmake/fmjpeg2kConfig.cmake.in
 #  COPYONLY
 #)
 
-set(ConfigPackageLocation lib/cmake/fmjpeg2k)
+set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/fmjpeg2k)
 install(EXPORT fmjpeg2kTargets
   FILE
     fmjpeg2kTargets.cmake
