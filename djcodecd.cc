@@ -69,7 +69,13 @@ OFBool DJPEG2KDecoderBase::canChangeCoding(
   DcmXfer newRep(newRepType);
   if (newRep.isNotEncapsulated() &&
      ((oldRepType == EXS_JPEG2000LosslessOnly)||(oldRepType == EXS_JPEG2000)||
-	  (oldRepType == EXS_JPEG2000MulticomponentLosslessOnly)||(oldRepType == EXS_JPEG2000Multicomponent)))
+	  (oldRepType == EXS_JPEG2000MulticomponentLosslessOnly)||(oldRepType == EXS_JPEG2000Multicomponent)
+#if PACKAGE_VERSION_NUMBER >= 369
+	  // HTJ2K (Part 15), whose transfer syntaxes DCMTK knows since 3.6.9, and which OpenJPEG decodes since 2.5
+	  ||(oldRepType == EXS_HighThroughputJPEG2000LosslessOnly)||(oldRepType == EXS_HighThroughputJPEG2000withRPCLOptionsLosslessOnly)
+	  ||(oldRepType == EXS_HighThroughputJPEG2000)
+#endif
+	  ))
      return OFTrue;
   
   return OFFalse;
